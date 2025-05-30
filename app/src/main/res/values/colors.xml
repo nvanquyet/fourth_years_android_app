@@ -2,4 +2,45 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="primary_green">#4CAF50</color>
+    <color name="primary_green_dark">#388E3C</color>
+    <color name="primary_green_light">#81C784</color>
+
+    <!-- Secondary Colors -->
+    <color name="accent_orange">#FF9800</color>
+    <color name="accent_orange_light">#FFB74D</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+
+    <!-- Background Colors -->
+    <color name="background_primary">#FAFAFA</color>
+    <color name="background_card">#FFFFFF</color>
+
+    <!-- Status Colors -->
+    <color name="success_green">#4CAF50</color>
+    <color name="warning_yellow">#FFC107</color>
+    <color name="error_red">#F44336</color>
+
+    <!-- Transparent -->
+    <color name="transparent">#00000000</color>
+
+    <color name="card_stroke_color">#FFCCCCCC</color>
+    <color name="category_background">#FFE0E0E0</color>
+    <color name="category_text">#FF333333</color>
+    <color name="priority_background">#FFFFDDDD</color>
+    <color name="priority_text">#FF990000</color>
+    <color name="box_bg">#FFEFEFEF</color>
+    <color name="circle_bg">#FFDDDDDD</color>
+    <color name="error_color">#FFB00020</color>
+    <color name="primary_color">#FF6200EE</color>
+    <color name="warning_color">#FFFF9800</color>
+    <color name="accent_color">#FF03DAC5</color>
+    <color name="status_warning">#FFFFC107</color>
+    <color name="status_fresh">#FF4CAF50</color>
+    <color name="expiring_orange">#FFFFA726</color>
+    <color name="expiring_orange_text">#FFBF360C</color>
 </resources>

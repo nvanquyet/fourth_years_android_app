@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="units_array">
+        <item>gram</item>
+        <item>kg</item>
+        <item>ml</item>
+        <item>liter</item>
+        <item>piece</item>
+        <item>cup</item>
+    </string-array>
+
+    <string-array name="categories_array">
+        <item>Meat</item>
+        <item>Vegetable</item>
+        <item>Fruit</item>
+        <item>Dairy</item>
+        <item>Grain</item>
+        <item>Other</item>
+    </string-array>
+</resources>

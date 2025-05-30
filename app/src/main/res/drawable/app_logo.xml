@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Background Circle -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z" />
+
+    <!-- Apple Icon -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12.5,7.5c0.83,0 1.68,-0.41 2.5,-1.03C16.84,7.79 18,9.71 18,12c0,3.31 -2.69,6 -6,6s-6,-2.69 -6,-6c0,-2.29 1.16,-4.21 2.91,-5.53C9.82,7.09 10.67,7.5 11.5,7.5H12.5z" />
+
+    <!-- Leaf -->
+    <path
+        android:fillColor="#81C784"
+        android:pathData="M12,2c1,0 2,1 2,2c0,0.5 -0.5,1 -1,1.5c-0.5,0.5 -1,0.5 -1,0C12,4.5 12,3 12,2z" />
+
+</vector>

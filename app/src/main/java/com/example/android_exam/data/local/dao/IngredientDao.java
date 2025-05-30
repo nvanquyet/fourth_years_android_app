@@ -1,32 +1,32 @@
 package com.example.android_exam.data.local.dao;
 
-
-import androidx.lifecycle.LiveData;
 import androidx.room.*;
-
-import com.example.android_exam.data.local.entity.IngredientEntity;
-
-import java.util.Date;
+import com.example.android_exam.data.local.entity.Ingredient;
 import java.util.List;
 
 @Dao
 public interface IngredientDao {
+    @Query("SELECT * FROM ingredients WHERE userId = :userId ORDER BY expiryDate ASC")
+    List<Ingredient> getAllByUserId(int userId);
 
-    @Query("SELECT * FROM ingredients ORDER BY name ASC")
-    LiveData<List<IngredientEntity>> getAllIngredients();
+    @Query("SELECT * FROM ingredients WHERE userId = :userId AND date(expiryDate) <= date('now', '+' || :daysAhead || ' days') ORDER BY expiryDate ASC")
+    List<Ingredient> getExpiringIngredients(int userId, int daysAhead);
 
-    @Query("SELECT * FROM ingredients WHERE expiration_date IS NOT NULL AND expiration_date < :today")
-    LiveData<List<IngredientEntity>> getExpiredIngredients(Date today);
+    @Query("SELECT * FROM ingredients WHERE id = :id")
+    Ingredient getById(int id);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(IngredientEntity ingredient);
+    @Insert
+    long insert(Ingredient ingredient);
 
     @Update
-    void update(IngredientEntity ingredient);
+    int update(Ingredient ingredient);
 
     @Delete
-    void delete(IngredientEntity ingredient);
+    int delete(Ingredient ingredient);
 
-    @Query("DELETE FROM ingredients")
-    void deleteAll();
+    @Query("DELETE FROM ingredients WHERE id = :id")
+    int deleteById(int id);
+
+    @Query("UPDATE ingredients SET quantity = quantity - :usedQuantity WHERE id = :id")
+    int reduceQuantity(int id, double usedQuantity);
 }
