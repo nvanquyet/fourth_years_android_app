@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:strokeColor="@color/card_stroke_color"
+    app:strokeWidth="1dp"
+    android:backgroundTint="@color/card_background"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Ingredient Icon -->
+        <ImageView
+            android:id="@+id/iv_ingredient_icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/ingredient_icon_background"
+            android:padding="6dp"
+            android:src="@drawable/ic_food_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primary_color"
+            tools:src="@drawable/ic_food_default" />
+
+        <!-- Expiry Status Indicator -->
+        <View
+            android:id="@+id/v_expiry_indicator"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/expiry_indicator_red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Ingredient Name -->
+        <TextView
+            android:id="@+id/tv_ingredient_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Cà chua"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@id/v_expiry_indicator"
+            app:layout_constraintStart_toEndOf="@id/iv_ingredient_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_ingredient_icon"
+            tools:text="Cà chua" />
+
+        <!-- Quantity -->
+        <LinearLayout
+            android:id="@+id/ll_quantity_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_ingredient_icon"
+            app:layout_constraintTop_toBottomOf="@id/tv_ingredient_name">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/ic_quantity"
+                app:tint="@color/icon_tint" />
+
+            <TextView
+                android:id="@+id/tv_ingredient_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="2 kg"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                tools:text="2 kg" />
+
+        </LinearLayout>
+
+        <!-- Expiry Date -->
+        <LinearLayout
+            android:id="@+id/ll_expiry_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_ingredient_icon"
+            app:layout_constraintTop_toBottomOf="@id/ll_quantity_container">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/ic_calendar"
+                app:tint="@color/icon_tint" />
+
+            <TextView
+                android:id="@+id/tv_expiry_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="25/12/2024"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                tools:text="25/12/2024" />
+
+        </LinearLayout>
+
+        <!-- Days Left -->
+        <TextView
+            android:id="@+id/tv_days_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/days_left_background"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="3 days left"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            app:layout_constraintTop_toBottomOf="@id/ll_expiry_container"
+            tools:text="3 days left" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

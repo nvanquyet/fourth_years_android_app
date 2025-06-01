@@ -127,12 +127,14 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll_expiring_ingredients"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvExpiringIngredients"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="12dp" />
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:padding="8dp"
+                    android:nestedScrollingEnabled="false" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

@@ -12,6 +12,9 @@ public interface IngredientDao {
     @Query("SELECT * FROM ingredients WHERE userId = :userId AND date(expiryDate) <= date('now', '+' || :daysAhead || ' days') ORDER BY expiryDate ASC")
     List<Ingredient> getExpiringIngredients(int userId, int daysAhead);
 
+    @Query("SELECT * FROM ingredients WHERE userId = :userId ORDER BY date(expiryDate) ASC LIMIT :limit")
+    List<Ingredient> getTopExpiringIngredients(int userId, int limit);
+
     @Query("SELECT * FROM ingredients WHERE id = :id")
     Ingredient getById(int id);
 

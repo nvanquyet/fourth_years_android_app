@@ -5,11 +5,15 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
+
 import com.example.android_exam.data.local.database.AppDatabase;
 import com.example.android_exam.data.local.entity.*;
 import com.example.android_exam.data.models.DiaryWithMeals;
 import com.example.android_exam.data.models.MealWithFoods;
+import com.example.android_exam.data.repository.IngredientRepository;
 import com.example.android_exam.data.repository.MealRepository;
 import com.example.android_exam.utils.DateUtils;
 import java.util.List;
@@ -20,6 +24,7 @@ public class HomeViewModel extends AndroidViewModel {
     private MutableLiveData<String> aiAnalysis = new MutableLiveData<>();
     private MutableLiveData<List<Food>> suggestedMeals = new MutableLiveData<>();
     private MutableLiveData<List<Ingredient>> expiringIngredients = new MutableLiveData<>();
+    private LiveData<List<Ingredient>> expiringIngredientsSource;
     private MutableLiveData<List<DiaryWithMeals>> calorieAnalysis = new MutableLiveData<>();
     private MutableLiveData<String> errorMessage = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
@@ -161,18 +166,89 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     private void loadExpiringIngredients() {
-        AppDatabase.getExpiringIngredients(currentUserId, 7, new AppDatabase.DatabaseCallback<List<Ingredient>>() {
-            @Override
-            public void onSuccess(List<Ingredient> ingredients) {
-                expiringIngredients.postValue(ingredients != null ? ingredients : new ArrayList<>());
-            }
+        isLoading.setValue(true);
 
-            @Override
-            public void onError(String error) {
-                errorMessage.postValue("Error loading expiring ingredients: " + error);
+        if (currentUserId <= 0) {
+            errorMessage.postValue("ID người dùng chưa được đặt. Vui lòng đăng nhập trước.");
+            expiringIngredients.postValue(new ArrayList<>());
+            isLoading.postValue(false);
+            return;
+        }
+
+        // Chỉ tạo source một lần hoặc khi userId thay đổi
+        if (expiringIngredientsSource == null) {
+            expiringIngredientsSource = IngredientRepository.getExpiringIngredients(currentUserId);
+        }
+
+        // Sử dụng Transformations để xử lý data
+        LiveData<List<Ingredient>> transformedData = Transformations.map(expiringIngredientsSource, ingredients -> {
+            isLoading.postValue(false);
+
+            if (ingredients != null && !ingredients.isEmpty()) {
+                Log.d("HomeViewModel", "Tải được " + ingredients.size() + " nguyên liệu sắp hết hạn");
+                return ingredients;
+            } else {
+                Log.d("HomeViewModel", "Danh sách nguyên liệu rỗng");
+                return new ArrayList<>();
+            }
+        });
+
+        // Set value cho expiringIngredients
+        if (transformedData.getValue() != null) {
+            expiringIngredients.setValue(transformedData.getValue());
+        }
+    }
+
+    // Alternative: Sử dụng MediatorLiveData (Recommended)
+    private void loadExpiringIngredientsWithMediator() {
+        isLoading.setValue(true);
+
+        if (currentUserId <= 0) {
+            errorMessage.postValue("ID người dùng chưa được đặt. Vui lòng đăng nhập trước.");
+            expiringIngredients.postValue(new ArrayList<>());
+            isLoading.postValue(false);
+            return;
+        }
+
+        // Remove previous source nếu có
+        if (expiringIngredientsSource != null && expiringIngredients instanceof MediatorLiveData) {
+            ((MediatorLiveData<List<Ingredient>>) expiringIngredients).removeSource(expiringIngredientsSource);
+        }
+
+        // Get new source
+        expiringIngredientsSource = IngredientRepository.getExpiringIngredients(currentUserId);
+
+        // Add source to MediatorLiveData
+        if (!(expiringIngredients instanceof MediatorLiveData)) {
+            // Convert to MediatorLiveData nếu chưa phải
+            MediatorLiveData<List<Ingredient>> mediator = new MediatorLiveData<>();
+            mediator.setValue(expiringIngredients.getValue());
+            expiringIngredients = mediator;
+        }
+
+        ((MediatorLiveData<List<Ingredient>>) expiringIngredients).addSource(expiringIngredientsSource, ingredients -> {
+            isLoading.postValue(false);
+
+            if (ingredients != null) {
+                Log.d("HomeViewModel", "Tải được " + ingredients.size() + " nguyên liệu sắp hết hạn");
+                expiringIngredients.postValue(ingredients);
+            } else {
+                Log.d("HomeViewModel", "Danh sách nguyên liệu rỗng");
                 expiringIngredients.postValue(new ArrayList<>());
             }
         });
+    }
+
+    // Method để refresh data
+    public void refreshExpiringIngredients() {
+        IngredientRepository.refreshExpiringIngredients(currentUserId);
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        // Cleanup khi ViewModel bị destroy
+        IngredientRepository.clearCache();
     }
 
     private void loadCalorieAnalysis() {

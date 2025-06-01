@@ -153,6 +153,7 @@
 
     <string name="action_cancel">Hủy</string>
     <string name="action_delete">Xóa</string>
+    <string name="action_edit">Sửa</string>
     <string name="action_save">Lưu thay đổi</string>
     <string name="calo_kcal_100g">Calo (kcal/100g)</string>
     <string name="hint_food_name">Tên thực phẩm *</string>
@@ -175,4 +176,60 @@
     <string name="expire_title">Expire ingredients left</string>
     <string name="expire_sample">Carrot: 1 day\nTomato: 2 days\nBone soup: 2 days\nPotato: 10 days</string>
     <string name="diary_title">Diary</string>
+
+    <!-- Ingredient Related -->
+    <string name="ingredient_name">Tên nguyên liệu</string>
+    <string name="ingredient_quantity">Số lượng</string>
+    <string name="ingredient_category">Danh mục</string>
+    <string name="expiry_date">Ngày hết hạn</string>
+    <string name="add_ingredient">Thêm nguyên liệu</string>
+    <string name="edit_ingredient">Sửa nguyên liệu</string>
+    <string name="delete_ingredient">Xóa nguyên liệu</string>
+
+    <!-- Categories -->
+    <string name="category_canned">Đồ hộp</string>
+
+    <!-- Actions -->
+    <string name="action_add">Thêm</string>
+    <string name="action_search">Tìm kiếm</string>
+    <string name="action_filter">Lọc</string>
+    <string name="action_sort">Sắp xếp</string>
+
+    <!-- Status Messages -->
+    <string name="status_fresh">Còn tươi</string>
+    <string name="status_expiring_soon">Sắp hết hạn</string>
+    <string name="status_expired">Đã hết hạn</string>
+    <string name="status_unknown">Không xác định</string>
+
+    <!-- Quantity Units -->
+    <string name="unit_pack">gói</string>
+    <string name="unit_bottle">chai</string>
+    <string name="unit_can">lon</string>
+
+    <!-- Error Messages -->
+    <string name="error_empty_name">Vui lòng nhập tên nguyên liệu</string>
+    <string name="error_empty_quantity">Vui lòng nhập số lượng</string>
+    <string name="error_invalid_date">Ngày không hợp lệ</string>
+    <string name="error_network">Lỗi kết nối mạng</string>
+    <string name="error_generic">Đã xảy ra lỗi</string>
+
+    <!-- Success Messages -->
+    <string name="success_ingredient_added">Đã thêm nguyên liệu thành công</string>
+    <string name="success_ingredient_updated">Đã cập nhật nguyên liệu thành công</string>
+    <string name="success_ingredient_deleted">Đã xóa nguyên liệu thành công</string>
+
+    <!-- Dialog Messages -->
+    <string name="dialog_yes">Có</string>
+    <string name="dialog_no">Không</string>
+
+    <!-- Hints -->
+    <string name="hint_ingredient_name">Nhập tên nguyên liệu</string>
+    <string name="hint_search">Tìm kiếm nguyên liệu</string>
+
+    <!-- Date Format -->
+    <string name="date_format_display">%1$s/%2$s/%3$s</string>
+
+    <!-- Empty State -->
+    <string name="empty_ingredients_title">Chưa có nguyên liệu nào</string>
+    <string name="empty_ingredients_message">Thêm nguyên liệu đầu tiên của bạn để bắt đầu quản lý thực phẩm</string>
 </resources>

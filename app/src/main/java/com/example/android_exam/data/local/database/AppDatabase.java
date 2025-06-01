@@ -152,11 +152,11 @@ public abstract class AppDatabase extends RoomDatabase {
         });
     }
 
-    public static void getExpiringIngredients(int userId, int daysAhead, DatabaseCallback<List<Ingredient>> callback) {
+    public static void getExpiringIngredients(int userId, int limit, DatabaseCallback<List<Ingredient>> callback) {
         databaseWriteExecutor.execute(() -> {
             try {
                 AppDatabase db = getDatabase(appContext);
-                List<Ingredient> expiring = db.ingredientDao().getExpiringIngredients(userId, daysAhead);
+                List<Ingredient> expiring = db.ingredientDao().getTopExpiringIngredients(userId, limit);
                 callback.onSuccess(expiring);
             } catch (Exception e) {
                 callback.onError(e.getMessage());

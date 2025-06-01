@@ -6,6 +6,7 @@
     <color name="primary_green">#4CAF50</color>
     <color name="primary_green_dark">#388E3C</color>
     <color name="primary_green_light">#81C784</color>
+    <color name="primary_color_light">#4CAF50</color>
 
     <!-- Secondary Colors -->
     <color name="accent_orange">#FF9800</color>
@@ -43,4 +44,48 @@
     <color name="status_fresh">#FF4CAF50</color>
     <color name="expiring_orange">#FFFFA726</color>
     <color name="expiring_orange_text">#FFBF360C</color>
+
+    <!-- Secondary Colors -->
+    <color name="secondary_color">#FF8F00</color>
+    <color name="secondary_dark">#FF6F00</color>
+    <color name="secondary_light">#FFB74D</color>
+
+    <!-- Background Colors -->
+    <color name="background_secondary">#F5F5F5</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="surface_color">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <!-- Card Colors -->
+    <color name="card_shadow">#1A000000</color>
+
+    <!-- Chip Colors -->
+    <color name="chip_background">#E8F5E8</color>
+    <color name="chip_text_color">#2E7D32</color>
+    <color name="chip_stroke_color">#A5D6A7</color>
+
+    <!-- Status Colors -->
+    <color name="info_color">#2196F3</color>
+
+    <!-- Expiry Status Colors -->
+    <color name="expiry_fresh">#4CAF50</color>
+    <color name="expiry_warning">#FF9800</color>
+    <color name="expiry_danger">#F44336</color>
+
+    <!-- Icon Colors -->
+    <color name="icon_tint">#666666</color>
+    <color name="icon_background">#F0F0F0</color>
+
+    <!-- Category Colors -->
+    <color name="category_vegetables">#4CAF50</color>
+    <color name="category_fruits">#FF9800</color>
+    <color name="category_dairy">#2196F3</color>
+    <color name="category_meat">#F44336</color>
+    <color name="category_grains">#8BC34A</color>
+    <color name="category_beverages">#9C27B0</color>
+
+    <!-- Common Colors -->
+    <color name="divider_color">#E0E0E0</color>
 </resources>

@@ -60,7 +60,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
             tvName = itemView.findViewById(R.id.tv_ingredient_name);
             tvQuantity = itemView.findViewById(R.id.tv_ingredient_quantity);
             tvExpiry = itemView.findViewById(R.id.tv_expiry_date);
-            tvCategory = itemView.findViewById(R.id.tv_ingredient_category);
+            tvCategory = itemView.findViewById(R.id.chip_category);
             btnEdit = itemView.findViewById(R.id.btn_edit_ingredient);
             btnDelete = itemView.findViewById(R.id.btn_delete_ingredient);
 
