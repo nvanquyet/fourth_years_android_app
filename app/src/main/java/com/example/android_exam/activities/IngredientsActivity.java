@@ -2,21 +2,18 @@ package com.example.android_exam.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.android_exam.R;
-import com.example.android_exam.adapters.IngredientsAdapter;
+import com.example.android_exam.adapters.Home.IngredientsAdapter;
 import com.example.android_exam.data.local.entity.Ingredient;
 import com.example.android_exam.utils.SessionManager;
 import com.example.android_exam.viewmodels.IngredientsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
-import java.util.List;
 
 public class IngredientsActivity extends AppCompatActivity {
 

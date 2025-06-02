@@ -1,4 +1,4 @@
-package com.example.android_exam.adapters;
+package com.example.android_exam.adapters.Home;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_exam.R;
-import com.example.android_exam.data.local.entity.Food;
-import com.example.android_exam.data.local.entity.Meal;
 import com.example.android_exam.data.models.MealWithFoods;
 
 import java.util.List;

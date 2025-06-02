@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="@dimen/card_corner_radius"
-    app:cardElevation="@dimen/card_elevation"
-    app:strokeColor="@color/card_stroke_color"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp"
+    app:strokeColor="@color/green_light"
     app:strokeWidth="1dp"
-    android:backgroundTint="@color/card_background">
+    android:backgroundTint="@android:color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,27 +19,27 @@
         <!-- Ingredient Icon -->
         <ImageView
             android:id="@+id/iv_ingredient_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/ingredient_icon_background"
-            android:padding="8dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/ingredient_icon_background_green"
+            android:padding="12dp"
             android:src="@drawable/ic_food_default"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/primary_color"
-            tools:src="@drawable/ic_food_default" />
+            app:tint="@color/green_primary"
+            tools:src="@drawable/ic_vegetables" />
 
         <!-- Ingredient Name -->
         <TextView
             android:id="@+id/tv_ingredient_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/roboto_medium"
+            android:fontFamily="@font/roboto_bold"
             android:text="Cà chua"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@id/chip_category"
             app:layout_constraintStart_toEndOf="@id/iv_ingredient_icon"
             app:layout_constraintTop_toTopOf="@id/iv_ingredient_icon"
@@ -50,8 +50,8 @@
             android:id="@+id/ll_quantity_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toStartOf="@id/chip_category"
@@ -59,11 +59,11 @@
             app:layout_constraintTop_toBottomOf="@id/tv_ingredient_name">
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="4dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="6dp"
                 android:src="@drawable/ic_quantity"
-                app:tint="@color/icon_tint" />
+                app:tint="@color/green_primary" />
 
             <TextView
                 android:id="@+id/tv_ingredient_quantity"
@@ -72,7 +72,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:text="2 kg"
                 android:textColor="@color/text_secondary"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 tools:text="2 kg" />
 
         </LinearLayout>
@@ -82,8 +82,8 @@
             android:id="@+id/ll_expiry_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toStartOf="@id/chip_category"
@@ -91,11 +91,11 @@
             app:layout_constraintTop_toBottomOf="@id/ll_quantity_container">
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="4dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="6dp"
                 android:src="@drawable/ic_calendar"
-                app:tint="@color/icon_tint" />
+                app:tint="@color/green_primary" />
 
             <TextView
                 android:id="@+id/tv_expiry_date"
@@ -104,16 +104,17 @@
                 android:fontFamily="@font/roboto_medium"
                 android:text="25/12/2024"
                 android:textColor="@color/text_secondary"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 tools:text="25/12/2024" />
 
             <!-- Expiry Status Indicator -->
             <View
                 android:id="@+id/v_expiry_indicator"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/expiry_indicator_green"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/expiry_indicator_circle"
+                android:backgroundTint="@color/success_color"
                 android:visibility="visible" />
 
         </LinearLayout>
@@ -124,56 +125,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rau củ"
-            android:textColor="@color/chip_text_color"
+            android:textColor="@color/green_dark"
             android:textSize="12sp"
-            app:chipBackgroundColor="@color/chip_background"
-            app:chipStrokeColor="@color/chip_stroke_color"
+            app:chipBackgroundColor="@color/green_light"
+            app:chipStrokeColor="@color/green_primary"
             app:chipStrokeWidth="1dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Rau củ" />
-
-        <!-- Action Buttons Container -->
-        <LinearLayout
-            android:id="@+id/ll_actions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chip_category">
-
-            <!-- Edit Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_edit_ingredient"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/roboto_medium"
-                android:text="@string/action_edit"
-                android:textColor="@color/primary_color"
-                android:textSize="12sp"
-                app:icon="@drawable/ic_edit"
-                app:iconSize="16dp"
-                app:iconTint="@color/primary_color" />
-
-            <!-- Delete Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_delete_ingredient"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:fontFamily="@font/roboto_medium"
-                android:text="@string/action_delete"
-                android:textColor="@color/error_color"
-                android:textSize="12sp"
-                app:icon="@drawable/ic_delete"
-                app:iconSize="16dp"
-                app:iconTint="@color/error_color" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</com.google.android.material.card.MaterialCardView>
+            app:layout_constraint

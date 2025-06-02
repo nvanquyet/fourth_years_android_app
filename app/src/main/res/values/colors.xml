@@ -88,4 +88,6 @@
 
     <!-- Common Colors -->
     <color name="divider_color">#E0E0E0</color>
+    <color name="green_background">#82ED07</color>
+
 </resources>

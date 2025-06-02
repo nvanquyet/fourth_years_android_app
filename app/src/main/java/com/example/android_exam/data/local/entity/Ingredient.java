@@ -46,4 +46,14 @@ public class Ingredient {
     public double getCaloriesPerUnit() { return caloriesPerUnit; }
     public String getCategory() { return category; }
 
+    public int getId() { return  id; }
+
+    public boolean isExpired() {
+        return true;
+    }
+
+    public boolean isExpiringSoon(){
+        return true;
+    }
+
 }

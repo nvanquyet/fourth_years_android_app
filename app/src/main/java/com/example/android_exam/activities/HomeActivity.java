@@ -1,8 +1,6 @@
 package com.example.android_exam.activities;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,14 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_exam.R;
-import com.example.android_exam.adapters.CalorieAnalysisAdapter;
-import com.example.android_exam.adapters.ExpiringIngredientsAdapter;
-import com.example.android_exam.adapters.SuggestedMealsAdapter;
+import com.example.android_exam.adapters.Home.CalorieAnalysisAdapter;
+import com.example.android_exam.adapters.Home.ExpiringIngredientsAdapter;
+import com.example.android_exam.adapters.Home.SuggestedMealsAdapter;
 import com.example.android_exam.data.local.entity.*;
-import com.example.android_exam.data.models.DiaryWithMeals;
 import com.example.android_exam.utils.GridSpacingItemDecoration;
 import com.example.android_exam.utils.SessionManager;
-import com.example.android_exam.utils.DateUtils;
 import com.example.android_exam.viewmodels.HomeViewModel;
 
 import java.util.List;
