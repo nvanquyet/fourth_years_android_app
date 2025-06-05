@@ -1,8 +1,15 @@
 package com.example.android_exam.data.local.entity;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
-@Entity(tableName = "nutrition_goals")
+
+@Entity(
+        tableName = "nutrition_goals",
+        indices = {@Index(value = {"userId"})}
+)
 public class NutritionGoal {
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -17,6 +24,11 @@ public class NutritionGoal {
     @NonNull
     public String goalType; // weight_loss, muscle_gain, maintain
 
+    public NutritionGoal() {
+        goalType = "maintain"; // Giá trị mặc định
+    }
+
+    @Ignore
     public NutritionGoal(int userId, double dailyCalorieGoal, double dailyProteinGoal,
                          double dailyCarbGoal, double dailyFatGoal, @NonNull String goalType) {
         this.userId = userId;
@@ -24,12 +36,15 @@ public class NutritionGoal {
         this.dailyProteinGoal = dailyProteinGoal;
         this.dailyCarbGoal = dailyCarbGoal;
         this.dailyFatGoal = dailyFatGoal;
-        this.goalType = goalType;
+        this.goalType = goalType.isEmpty() ? "maintain" : goalType;
     }
 
     // Getters and setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
+
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
 
     public double getDailyCalorieGoal() { return dailyCalorieGoal; }
     public void setDailyCalorieGoal(double dailyCalorieGoal) { this.dailyCalorieGoal = dailyCalorieGoal; }
@@ -43,6 +58,7 @@ public class NutritionGoal {
     public double getDailyFatGoal() { return dailyFatGoal; }
     public void setDailyFatGoal(double dailyFatGoal) { this.dailyFatGoal = dailyFatGoal; }
 
+    @NonNull
     public String getGoalType() { return goalType; }
-    public void setGoalType(String goalType) { this.goalType = goalType; }
+    public void setGoalType(@NonNull String goalType) { this.goalType = goalType.isEmpty() ? "maintain" : goalType; }
 }

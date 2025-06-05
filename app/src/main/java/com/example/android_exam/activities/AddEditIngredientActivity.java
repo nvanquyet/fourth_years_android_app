@@ -50,12 +50,12 @@ public class AddEditIngredientActivity extends AppCompatActivity {
 
     private void setupSpinners() {
         ArrayAdapter<CharSequence> unitAdapter = ArrayAdapter.createFromResource(
-                this, R.array.units_array, android.R.layout.simple_spinner_item);
+                this, R.array.measurement_units, android.R.layout.simple_spinner_item);
         unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spUnit.setAdapter(unitAdapter);
 
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(
-                this, R.array.categories_array, android.R.layout.simple_spinner_item);
+                this, R.array.ingredient_categories, android.R.layout.simple_spinner_item);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCategory.setAdapter(categoryAdapter);
     }

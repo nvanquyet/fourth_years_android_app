@@ -32,7 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <!-- Search Bar -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_search"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -50,9 +49,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:maxLines="1" />
-
         </com.google.android.material.textfield.TextInputLayout>
-
     </LinearLayout>
 
     <!-- Categories Section -->
@@ -85,7 +82,6 @@
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_category_chip" />
-
     </LinearLayout>
 
     <!-- Expiry Filter Section -->
@@ -102,6 +98,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_categories_section">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Tình trạng"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_expiry_filters"
             android:layout_width="match_parent"
@@ -109,7 +114,78 @@
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_expiry_chip" />
+    </LinearLayout>
 
+    <!-- Sort Section -->
+    <LinearLayout
+        android:id="@+id/ll_sort_section"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:elevation="1dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_expiry_section">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Sắp xếp theo"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_sort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_sort_name"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Tên"
+                android:textColor="@color/primary_green_dark"
+                app:chipBackgroundColor="@color/chip_selector"
+                app:chipStrokeColor="@color/primary_green" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_sort_expiry"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hạn sử dụng"
+                android:textColor="@color/primary_green_dark"
+                app:chipBackgroundColor="@color/chip_selector"
+                app:chipStrokeColor="@color/primary_green" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_sort_quantity"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số lượng"
+                android:textColor="@color/primary_green_dark"
+                app:chipBackgroundColor="@color/chip_selector"
+                app:chipStrokeColor="@color/primary_green" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_sort_category"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danh mục"
+                android:textColor="@color/primary_green_dark"
+                app:chipBackgroundColor="@color/chip_selector"
+                app:chipStrokeColor="@color/primary_green" />
+        </com.google.android.material.chip.ChipGroup>
     </LinearLayout>
 
     <!-- Statistics Card -->
@@ -123,7 +199,7 @@
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_expiry_section">
+        app:layout_constraintTop_toBottomOf="@id/ll_sort_section">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -153,7 +229,6 @@
                     android:text="Tổng số"
                     android:textColor="@color/primary_green_dark"
                     android:textSize="12sp" />
-
             </LinearLayout>
 
             <View
@@ -183,7 +258,6 @@
                     android:text="Sắp hết hạn"
                     android:textColor="@color/primary_green_dark"
                     android:textSize="12sp" />
-
             </LinearLayout>
 
             <View
@@ -213,11 +287,8 @@
                     android:text="Hết hạn"
                     android:textColor="@color/primary_green_dark"
                     android:textSize="12sp" />
-
             </LinearLayout>
-
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 
     <!-- RecyclerView -->
@@ -269,10 +340,37 @@
             android:text="Nhấn nút + để thêm nguyên liệu mới"
             android:textColor="@color/text_secondary"
             android:textSize="14sp" />
-
     </LinearLayout>
 
-    <!-- Floating Action Button -->
+    <!-- Floating Action Buttons -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="160dp"
+        android:backgroundTint="@color/primary_green"
+        android:src="@drawable/ic_camera"
+        android:visibility="gone"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@android:color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_manual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="110dp"
+        android:backgroundTint="@color/primary_green"
+        android:src="@drawable/ic_edit"
+        android:visibility="gone"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@android:color/white" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_ingredient"
         android:layout_width="wrap_content"

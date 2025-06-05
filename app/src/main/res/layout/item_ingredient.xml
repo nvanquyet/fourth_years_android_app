@@ -5,11 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    android:backgroundTint="@android:color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="12dp"
     app:cardElevation="6dp"
-    app:strokeColor="@color/green_light"
-    app:strokeWidth="1dp"
-    android:backgroundTint="@android:color/white">
+    app:strokeColor="@color/primary_green_light"
+    app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,12 +24,12 @@
             android:id="@+id/iv_ingredient_icon"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:background="@drawable/ingredient_icon_background_green"
+            android:background="@drawable/ic_launcher_background"
             android:padding="12dp"
             android:src="@drawable/ic_food_default"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/green_primary"
+            app:tint="@color/primary_green"
             tools:src="@drawable/ic_vegetables" />
 
         <!-- Ingredient Name -->
@@ -36,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/roboto_medium"
             android:text="Cà chua"
             android:textColor="@color/text_primary"
             android:textSize="18sp"
@@ -63,7 +66,7 @@
                 android:layout_height="18dp"
                 android:layout_marginEnd="6dp"
                 android:src="@drawable/ic_quantity"
-                app:tint="@color/green_primary" />
+                app:tint="@color/primary_green" />
 
             <TextView
                 android:id="@+id/tv_ingredient_quantity"
@@ -95,7 +98,7 @@
                 android:layout_height="18dp"
                 android:layout_marginEnd="6dp"
                 android:src="@drawable/ic_calendar"
-                app:tint="@color/green_primary" />
+                app:tint="@color/primary_green" />
 
             <TextView
                 android:id="@+id/tv_expiry_date"
@@ -113,8 +116,8 @@
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/expiry_indicator_circle"
-                android:backgroundTint="@color/success_color"
+                android:background="@drawable/status_indicator_background"
+                android:backgroundTint="@color/success_green"
                 android:visibility="visible" />
 
         </LinearLayout>
@@ -125,10 +128,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rau củ"
-            android:textColor="@color/green_dark"
+            android:textColor="@color/primary_green_dark"
             android:textSize="12sp"
-            app:chipBackgroundColor="@color/green_light"
-            app:chipStrokeColor="@color/green_primary"
+            app:chipBackgroundColor="@color/primary_green_dark"
+            app:chipStrokeColor="@color/primary_green"
             app:chipStrokeWidth="1dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraint
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

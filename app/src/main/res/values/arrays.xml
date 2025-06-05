@@ -1,20 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="units_array">
-        <item>gram</item>
+    <!-- Units of measurement -->
+    <string-array name="measurement_units">
         <item>kg</item>
+        <item>gram</item>
+        <item>lít</item>
         <item>ml</item>
-        <item>liter</item>
-        <item>piece</item>
-        <item>cup</item>
+        <item>cái</item>
+        <item>gói</item>
+        <item>hộp</item>
+        <item>chai</item>
+        <item>lon</item>
+        <item>túi</item>
     </string-array>
 
-    <string-array name="categories_array">
-        <item>Meat</item>
-        <item>Vegetable</item>
-        <item>Fruit</item>
-        <item>Dairy</item>
-        <item>Grain</item>
-        <item>Other</item>
+    <!-- Categories -->
+    <string-array name="ingredient_categories">
+        <item>Rau củ</item>
+        <item>Thịt cá</item>
+        <item>Gia vị</item>
+        <item>Ngũ cốc</item>
+        <item>Trái cây</item>
+        <item>Sữa</item>
+        <item>Đồ uống</item>
+        <item>Đồ khô</item>
+        <item>Khác</item>
+    </string-array>
+
+    <!-- Expiry status filters -->
+    <string-array name="expiry_filters">
+        <item>Tất cả</item>
+        <item>Còn tốt</item>
+        <item>Sắp hết hạn</item>
+        <item>Đã hết hạn</item>
+    </string-array>
+
+    <!-- Sort options -->
+    <string-array name="sort_options">
+        <item>Tên</item>
+        <item>Hạn sử dụng</item>
+        <item>Số lượng</item>
+        <item>Danh mục</item>
     </string-array>
 </resources>

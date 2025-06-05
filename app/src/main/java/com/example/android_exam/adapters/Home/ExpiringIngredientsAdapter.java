@@ -33,7 +33,7 @@ public class ExpiringIngredientsAdapter extends RecyclerView.Adapter<ExpiringIng
     public ExpiringIngredientsAdapter(Context context, List<Ingredient> ingredients) {
         this.context = context;
         this.ingredients = ingredients;
-        this.categories = context.getResources().getStringArray(R.array.categories_array);
+        this.categories = context.getResources().getStringArray(R.array.ingredient_categories);
     }
 
     public void setOnIngredientClickListener(OnIngredientClickListener listener) {
