@@ -9,10 +9,9 @@ import androidx.room.PrimaryKey;
 
 import com.example.android_exam.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.concurrent.TimeUnit;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -41,7 +40,7 @@ public class Ingredient {
 
     public double quantity;
     public String unit;
-    public String expiryDate;
+    public long expiryDateTimestamp; // Lưu dưới dạng milliseconds since epoch
     public double caloriesPerUnit;
     public String category;
     private int iconResource;
@@ -50,17 +49,20 @@ public class Ingredient {
         this.name = "Unknown";
         this.quantity = 0.0;
         this.unit = "";
-        this.expiryDate = "";
+        this.expiryDateTimestamp = 0L;
+        this.caloriesPerUnit = 0.0;
         this.category = "";
         this.iconResource = R.drawable.ic_food_default;
     }
 
     @Ignore
-    public Ingredient(@NonNull String name, double quantity, String unit, String expiryDate, String category, int iconResource) {
+    public Ingredient(@NonNull String name, double quantity, String unit, long expiryDateTimestamp,
+                      double caloriesPerUnit, String category, int iconResource) {
         this.name = name.isEmpty() ? "Unknown" : name;
         this.quantity = quantity;
         this.unit = unit;
-        this.expiryDate = expiryDate;
+        this.expiryDateTimestamp = expiryDateTimestamp;
+        this.caloriesPerUnit = caloriesPerUnit;
         this.category = category;
         this.iconResource = iconResource;
     }
@@ -76,8 +78,8 @@ public class Ingredient {
     public String getUnit() { return unit; }
     public void setUnit(String unit) { this.unit = unit; }
 
-    public String getExpiryDate() { return expiryDate; }
-    public void setExpiryDate(String expiryDate) { this.expiryDate = expiryDate; }
+    public long getExpiryDateTimestamp() { return expiryDateTimestamp; }
+    public void setExpiryDateTimestamp(long expiryDateTimestamp) { this.expiryDateTimestamp = expiryDateTimestamp; }
 
     public double getCaloriesPerUnit() { return caloriesPerUnit; }
     public void setCaloriesPerUnit(double caloriesPerUnit) { this.caloriesPerUnit = caloriesPerUnit; }
@@ -99,15 +101,9 @@ public class Ingredient {
     }
 
     public int getDaysUntilExpiry() {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            Date expiryDateObj = sdf.parse(expiryDate);
-            Date currentDate = new Date();
-            long diffInMillies = expiryDateObj.getTime() - currentDate.getTime();
-            return (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-        } catch (ParseException e) {
-            return Integer.MAX_VALUE;
-        }
+        long currentTime = System.currentTimeMillis();
+        long diffInMillies = expiryDateTimestamp - currentTime;
+        return (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
     }
 
     public ExpiryStatus getExpiryStatus() {
@@ -150,7 +146,7 @@ public class Ingredient {
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
                 ", unit='" + unit + '\'' +
-                ", expiryDate='" + expiryDate + '\'' +
+                ", expiryDateTimestamp=" + expiryDateTimestamp +
                 ", category='" + category + '\'' +
                 '}';
     }

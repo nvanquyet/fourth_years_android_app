@@ -25,7 +25,7 @@ public class NutritionGoal {
     public String goalType; // weight_loss, muscle_gain, maintain
 
     public NutritionGoal() {
-        goalType = "maintain"; // Giá trị mặc định
+        goalType = "maintain";
     }
 
     @Ignore

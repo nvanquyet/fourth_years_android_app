@@ -7,6 +7,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.android_exam.data.local.database.AppDatabase;
 import com.example.android_exam.data.local.entity.Ingredient;
+import com.example.android_exam.data.remote.LocalDataRepository;
+import com.example.android_exam.data.remote.DataRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +31,7 @@ public class IngredientsViewModel extends AndroidViewModel {
     }
 
     public void loadIngredients(int userId) {
-        AppDatabase.getAllIngredients(userId, new AppDatabase.DatabaseCallback<List<Ingredient>>() {
+        LocalDataRepository.getInstance().getAllIngredients(userId, new DataRepository.AuthCallback<List<Ingredient>>() {
             @Override
             public void onSuccess(List<Ingredient> result) {
                 ingredients.postValue(result != null ? result : new ArrayList<>());
@@ -43,7 +46,7 @@ public class IngredientsViewModel extends AndroidViewModel {
     }
 
     public void addIngredient(Ingredient ingredient) {
-        AppDatabase.addIngredient(ingredient, new AppDatabase.DatabaseCallback<Ingredient>() {
+        LocalDataRepository.getInstance().addIngredient(ingredient, new DataRepository.AuthCallback<Ingredient>() {
             @Override
             public void onSuccess(Ingredient result) {
                 loadIngredients(ingredient.userId);
@@ -57,7 +60,7 @@ public class IngredientsViewModel extends AndroidViewModel {
     }
 
     public void updateIngredient(Ingredient ingredient) {
-        AppDatabase.updateIngredient(ingredient, new AppDatabase.DatabaseCallback<Boolean>() {
+        LocalDataRepository.getInstance().updateIngredient(ingredient, new DataRepository.AuthCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
                 if (result) {
@@ -75,7 +78,7 @@ public class IngredientsViewModel extends AndroidViewModel {
     }
 
     public void deleteIngredient(Ingredient ingredient) {
-        AppDatabase.deleteIngredient(ingredient.id, new AppDatabase.DatabaseCallback<Boolean>() {
+        LocalDataRepository.getInstance().deleteIngredient(ingredient.id, new DataRepository.AuthCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
                 if (result) {

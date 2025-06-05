@@ -13,8 +13,6 @@ import com.example.android_exam.data.local.database.AppDatabase;
 import com.example.android_exam.data.local.entity.*;
 import com.example.android_exam.data.models.DiaryWithMeals;
 import com.example.android_exam.data.models.MealWithFoods;
-import com.example.android_exam.data.repository.IngredientRepository;
-import com.example.android_exam.data.repository.MealRepository;
 import com.example.android_exam.utils.DateUtils;
 import java.util.List;
 import java.util.ArrayList;

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.android_exam.R;
 import com.example.android_exam.data.local.entity.Ingredient;
-import com.example.android_exam.data.repository.IngredientRepository;
+import com.example.android_exam.data.remote.LocalDataRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class IngredientViewModel extends ViewModel {
-    private IngredientRepository repository;
-
     // Filter states
     private MutableLiveData<String> selectedCategory;
     private MutableLiveData<String> selectedExpiryFilter;
@@ -32,8 +30,6 @@ public class IngredientViewModel extends ViewModel {
     private MutableLiveData<List<String>> expiryFilters;
 
     public IngredientViewModel() {
-        repository = IngredientRepository.getInstance();
-
         // Initialize filter states
         selectedCategory = new MutableLiveData<>("Tất cả");
         selectedExpiryFilter = new MutableLiveData<>("Tất cả");
@@ -55,11 +51,11 @@ public class IngredientViewModel extends ViewModel {
 
     // Repository LiveData
     public LiveData<List<Ingredient>> getAllIngredients() {
-        return repository.getAllIngredients();
+        return LocalDataRepository.getInstance().getAllIngredients();
     }
 
     public LiveData<List<Ingredient>> getFilteredIngredients() {
-        return repository.getFilteredIngredients();
+        return LocalDataRepository.getInstance().getFilteredIngredients();
     }
 
     public LiveData<List<String>> getAllCategories() {
@@ -166,9 +162,9 @@ public class IngredientViewModel extends ViewModel {
     // Statistics and categories update
     private void updateStatistics() {
         Statistics stats = new Statistics();
-        stats.totalItems = repository.getTotalCount();
-        stats.expiringSoon = repository.getExpiringSoonCount();
-        stats.expired = repository.getExpiredCount();
+//        stats.totalItems = LocalDataRepository.getInstance().getTotalCount();
+//        stats.expiringSoon = LocalDataRepository.getInstance().getExpiringSoonCount();
+//        stats.expired = LocalDataRepository.getInstance().getExpiredCount();
         statistics.setValue(stats);
     }
 

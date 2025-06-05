@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.android_exam.R;
 import com.example.android_exam.data.local.database.AppDatabase;
 import com.example.android_exam.data.local.entity.User;
+import com.example.android_exam.data.remote.LocalDataRepository;
+import com.example.android_exam.data.remote.DataRepository;
 import com.example.android_exam.utils.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
@@ -39,8 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-        // Initialize AppDatabase
-        AppDatabase.initialize(this);
+        LocalDataRepository.getInstance(this);
 
         initViews();
         setupClickListeners();
@@ -78,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
 
         showLoading(true);
 
-        AppDatabase.login(username, password, new AppDatabase.DatabaseCallback<User>() {
+        LocalDataRepository.getInstance().login(username, password, new DataRepository.AuthCallback<User>() {
             @Override
             public void onSuccess(User user) {
                 runOnUiThread(() -> {
@@ -124,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
 
         showLoading(true);
 
-        AppDatabase.register(username, password, new AppDatabase.DatabaseCallback<User>() {
+        LocalDataRepository.getInstance().register(username, password, new DataRepository.AuthCallback<User>() {
             @Override
             public void onSuccess(User user) {
                 runOnUiThread(() -> {
