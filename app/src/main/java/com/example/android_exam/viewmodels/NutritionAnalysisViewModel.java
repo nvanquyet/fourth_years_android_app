@@ -5,8 +5,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import com.example.android_exam.data.local.database.AppDatabase;
 import com.example.android_exam.data.local.entity.NutritionGoal;
+import com.example.android_exam.data.remote.DataRepository;
+import com.example.android_exam.data.remote.LocalDataRepository;
 import com.example.android_exam.utils.DateUtils;
 
 public class NutritionAnalysisViewModel extends AndroidViewModel {
@@ -28,10 +29,10 @@ public class NutritionAnalysisViewModel extends AndroidViewModel {
 
     public void loadNutritionData(int userId) {
         String today = DateUtils.getTodayString();
-        AppDatabase.getTotalCaloriesByDate(userId, today, new AppDatabase.DatabaseCallback<Double>() {
+        LocalDataRepository.getInstance().getTotalCaloriesByDate(today, new DataRepository.AuthCallback<Double>() {
             @Override
             public void onSuccess(Double todayCalories) {
-                AppDatabase.getNutritionGoal(userId, new AppDatabase.DatabaseCallback<NutritionGoal>() {
+                LocalDataRepository.getInstance().getNutritionGoal(new DataRepository.AuthCallback<NutritionGoal>() {
                     @Override
                     public void onSuccess(NutritionGoal goal) {
                         StringBuilder summary = new StringBuilder();

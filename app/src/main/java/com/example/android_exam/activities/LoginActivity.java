@@ -32,20 +32,25 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Check if user is already logged in
-        if (SessionManager.isLoggedIn(this)) {
-            startActivity(new Intent(this, HomeActivity.class));
-            finish();
-            return;
-        }
-
-        setContentView(R.layout.activity_login);
-
-        LocalDataRepository.getInstance(this);
-
-        initViews();
-        setupClickListeners();
+        // Kiểm tra trạng thái đăng nhập bất đồng bộ
+        SessionManager.checkLoginStatus(this, new SessionManager.LoginCheckCallback() {
+            @Override
+            public void onResult(boolean success, User user, String errorMessage) {
+                if (success) {
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    finish();
+                } else {
+                    runOnUiThread(() -> {
+                        setContentView(R.layout.activity_login);
+                        LocalDataRepository.getInstance(LoginActivity.this);
+                        initViews();
+                        setupClickListeners();
+                    });
+                }
+            }
+        });
     }
+
 
     private void initViews() {
         etUsername = findViewById(R.id.et_username);
@@ -86,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                     showLoading(false);
                     if (user != null) {
                         // Save session
-                        SessionManager.saveUserSession(LoginActivity.this, user.id, user.username);
+                        SessionManager.saveUserSession(LoginActivity.this,user.id, user.username, user.getHashedPassword());
 
                         // Navigate to main activity
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -132,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                     showLoading(false);
 
                     // Save session
-                    SessionManager.saveUserSession(LoginActivity.this, user.id, user.username);
+                    SessionManager.saveUserSession(LoginActivity.this, user.id, user.username, user.getHashedPassword());
 
                     // Navigate to main activity
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);

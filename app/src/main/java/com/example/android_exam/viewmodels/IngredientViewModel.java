@@ -1,20 +1,29 @@
 package com.example.android_exam.viewmodels;
 
+
+import android.app.Application;
+import android.content.res.Resources;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.android_exam.R;
 import com.example.android_exam.data.local.entity.Ingredient;
+import com.example.android_exam.data.remote.DataRepository;
 import com.example.android_exam.data.remote.LocalDataRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class IngredientViewModel extends ViewModel {
+public class IngredientViewModel extends AndroidViewModel {
     // Filter states
     private MutableLiveData<String> selectedCategory;
     private MutableLiveData<String> selectedExpiryFilter;
@@ -29,7 +38,8 @@ public class IngredientViewModel extends ViewModel {
     private MutableLiveData<List<String>> allCategories;
     private MutableLiveData<List<String>> expiryFilters;
 
-    public IngredientViewModel() {
+    public IngredientViewModel(@NonNull Application application) {
+        super(application);
         // Initialize filter states
         selectedCategory = new MutableLiveData<>("Tất cả");
         selectedExpiryFilter = new MutableLiveData<>("Tất cả");
@@ -51,11 +61,41 @@ public class IngredientViewModel extends ViewModel {
 
     // Repository LiveData
     public LiveData<List<Ingredient>> getAllIngredients() {
-        return LocalDataRepository.getInstance().getAllIngredients();
+        MutableLiveData<List<Ingredient>> result = new MutableLiveData<>();
+
+        LocalDataRepository.getInstance().getAllIngredients(new DataRepository.AuthCallback<List<Ingredient>>() {
+            @Override
+            public void onSuccess(List<Ingredient> ingredients) {
+                result.postValue(ingredients);
+            }
+
+            @Override
+            public void onError(String error) {
+                // Optionally handle the error, e.g., post an empty list or null
+                result.postValue(null); // Or handle error differently based on your needs
+            }
+        });
+
+        return result;
     }
 
     public LiveData<List<Ingredient>> getFilteredIngredients() {
-        return LocalDataRepository.getInstance().getFilteredIngredients();
+        MutableLiveData<List<Ingredient>> result = new MutableLiveData<>();
+
+        LocalDataRepository.getInstance().getFilteredIngredients("", new DataRepository.AuthCallback<List<Ingredient>>() {
+            @Override
+            public void onSuccess(List<Ingredient> ingredients) {
+                result.postValue(ingredients);
+            }
+
+            @Override
+            public void onError(String error) {
+                // Optionally handle the error, e.g., post an empty list or null
+                result.postValue(null); // Or handle error differently based on your needs
+            }
+        });
+
+        return result;
     }
 
     public LiveData<List<String>> getAllCategories() {
@@ -82,7 +122,7 @@ public class IngredientViewModel extends ViewModel {
     public void loadIngredients() {
         isLoading.setValue(true);
         try {
-            repository.loadIngredients();
+            //LocalDataRepository.getInstance().loadIngredients();
             updateStatistics();
             updateCategories();
             isLoading.setValue(false);
@@ -94,10 +134,20 @@ public class IngredientViewModel extends ViewModel {
 
     public void addIngredient(Ingredient ingredient) {
         try {
-            repository.addIngredient(ingredient);
-            updateStatistics();
-            updateCategories();
-            errorMessage.setValue(null);
+            LocalDataRepository.getInstance().addIngredient(ingredient, new DataRepository.AuthCallback<Ingredient>() {
+                @Override
+                public void onSuccess(Ingredient result) {
+                    // Handle success if needed
+                    updateStatistics();
+                    updateCategories();
+                    errorMessage.setValue(null);
+                }
+
+                @Override
+                public void onError(String error) {
+                    errorMessage.setValue("Lỗi khi thêm nguyên liệu: " + error);
+                }
+            });
         } catch (Exception e) {
             errorMessage.setValue("Lỗi khi thêm nguyên liệu: " + e.getMessage());
         }
@@ -105,21 +155,42 @@ public class IngredientViewModel extends ViewModel {
 
     public void updateIngredient(Ingredient ingredient) {
         try {
-            repository.updateIngredient(ingredient);
-            updateStatistics();
-            updateCategories();
-            errorMessage.setValue(null);
+            LocalDataRepository.getInstance().updateIngredient(ingredient, new DataRepository.AuthCallback<Boolean>() {
+                @Override
+                public void onSuccess(Boolean result) {
+                    updateStatistics();
+                    updateCategories();
+                    errorMessage.setValue(null);
+                }
+
+                @Override
+                public void onError(String error) {
+                    errorMessage.setValue("Lỗi khi thêm nguyên liệu: " + error);
+                }
+            });
+
         } catch (Exception e) {
             errorMessage.setValue("Lỗi khi cập nhật nguyên liệu: " + e.getMessage());
         }
     }
 
-    public void deleteIngredient(String ingredientId) {
+    public void deleteIngredient(int ingredientId) {
         try {
-            repository.deleteIngredient(ingredientId);
-            updateStatistics();
-            updateCategories();
-            errorMessage.setValue(null);
+            LocalDataRepository.getInstance().deleteIngredient(ingredientId, new DataRepository.AuthCallback<Boolean>() {
+                @Override
+                public void onSuccess(Boolean result) {
+                    // Handle success if needed
+                    updateStatistics();
+                    updateCategories();
+                    errorMessage.setValue(null);
+                }
+
+                @Override
+                public void onError(String error) {
+                    errorMessage.setValue("Lỗi khi xóa nguyên liệu: " + error);
+                }
+            });
+
         } catch (Exception e) {
             errorMessage.setValue("Lỗi khi xóa nguyên liệu: " + e.getMessage());
         }
@@ -143,7 +214,7 @@ public class IngredientViewModel extends ViewModel {
 
     public void setSortMode(String sortMode) {
         currentSortMode.setValue(sortMode);
-        repository.sortIngredients(sortMode);
+        //repository.sortIngredients(sortMode);
     }
 
     // Combined filter operation
@@ -151,10 +222,10 @@ public class IngredientViewModel extends ViewModel {
         String category = selectedCategory.getValue();
         String expiryFilter = selectedExpiryFilter.getValue();
         String search = searchQuery.getValue();
-        repository.applyComplexFilter(search, category, expiryFilter);
+        //repository.applyComplexFilter(search, category, expiryFilter);
         String sortMode = currentSortMode.getValue();
         if (sortMode != null) {
-            repository.sortIngredients(sortMode);
+            //repository.sortIngredients(sortMode);
         }
         updateStatistics();
     }
@@ -169,7 +240,11 @@ public class IngredientViewModel extends ViewModel {
     }
 
     private void updateCategories() {
-        allCategories.setValue(repository.getAllCategories());
+        Resources res =  getApplication().getResources();
+        String[] categoryArray = res.getStringArray(R.array.ingredient_categories);
+        List<String> categories = Arrays.asList(categoryArray);
+
+        allCategories.setValue(categories);
     }
 
     // Reset filters
@@ -260,20 +335,40 @@ public class IngredientViewModel extends ViewModel {
 
         try {
             double quantity = Double.parseDouble(quantityStr);
-            return new Ingredient(name.trim(), quantity, unit, expiryDate, category, R.drawable.ic_food_default);
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            dateFormat.setLenient(false);
+            Date date = dateFormat.parse(expiryDate);
+            long expiryTimestamp = (date != null) ? date.getTime() : 0;
+
+            return new Ingredient(name.trim(), quantity, unit, expiryTimestamp, category, R.drawable.ic_food_default);
         } catch (NumberFormatException e) {
-            errorMessage.setValue("Lỗi khi tạo nguyên liệu: " + e.getMessage());
+            errorMessage.setValue("Lỗi khi tạo nguyên liệu: Số lượng không hợp lệ - " + e.getMessage());
+            return null;
+        } catch (ParseException e) {
+            errorMessage.setValue("Lỗi khi tạo nguyên liệu: Định dạng ngày không hợp lệ - " + e.getMessage());
             return null;
         }
     }
-
     // Utility methods
     public void clearError() {
         errorMessage.setValue(null);
     }
+    public LiveData<Ingredient> getIngredientById(int id) {
+        MutableLiveData<Ingredient> result = new MutableLiveData<>();
+        LocalDataRepository.getInstance().getIngredientById(id, new DataRepository.AuthCallback<Ingredient>() {
+            @Override
+            public void onSuccess(Ingredient ingredient) {
+                result.postValue(ingredient);
+            }
 
-    public Ingredient getIngredientById(String id) {
-        return repository.getIngredientById(Integer.parseInt(id));
+            @Override
+            public void onError(String error) {
+                errorMessage.setValue("Lỗi khi lấy nguyên liệu: " + error);
+                result.postValue(null);
+            }
+        });
+        return result;
     }
 
     // Statistics data class

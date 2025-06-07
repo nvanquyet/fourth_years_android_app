@@ -99,8 +99,7 @@ public class AddEditIngredientActivity extends AppCompatActivity {
                 ingredient.name = etName.getText().toString().trim();
                 ingredient.quantity = Double.parseDouble(etQuantity.getText().toString().trim());
                 ingredient.unit = spUnit.getSelectedItem().toString();
-                ingredient.expiryDate = etExpiryDate.getText().toString().trim();
-                ingredient.caloriesPerUnit = Double.parseDouble(etCalories.getText().toString().trim());
+                ingredient.setExpiryDateTimestamp(etExpiryDate.getText().toString().trim());
                 ingredient.category = spCategory.getSelectedItem().toString();
                 if (isEditMode) {
                     ingredient.id = ingredientId;

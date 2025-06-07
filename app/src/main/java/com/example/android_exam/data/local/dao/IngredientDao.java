@@ -43,9 +43,6 @@ public interface IngredientDao {
     @Query("SELECT COUNT(*) FROM ingredients WHERE userId = :userId AND expiryDateTimestamp BETWEEN :currentTime AND :thresholdTime")
     int getExpiringSoonCount(int userId, long currentTime, long thresholdTime);
 
-    @Query("SELECT SUM(quantity * caloriesPerUnit) FROM ingredients WHERE userId = :userId")
-    Double getTotalCaloriesAvailable(int userId);
-
     @Query("SELECT DISTINCT category FROM ingredients WHERE userId = :userId AND category IS NOT NULL AND category != '' ORDER BY category")
     List<String> getAllCategories(int userId);
 
@@ -111,17 +108,6 @@ public interface IngredientDao {
             Double maxQuantity,
             String sortBy
     );
-
-    @Query("""
-        SELECT category,
-               COUNT(*) AS count,
-               SUM(quantity * caloriesPerUnit) AS totalCalories
-        FROM ingredients
-        WHERE userId = :userId
-        GROUP BY category
-        ORDER BY totalCalories DESC
-        """)
-    List<CategoryStats> getCategoryStatistics(int userId);
 
     // ========== HELPER CLASSES ==========
     class CategoryStats {

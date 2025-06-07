@@ -31,7 +31,7 @@ public class IngredientsViewModel extends AndroidViewModel {
     }
 
     public void loadIngredients(int userId) {
-        LocalDataRepository.getInstance().getAllIngredients(userId, new DataRepository.AuthCallback<List<Ingredient>>() {
+        LocalDataRepository.getInstance().getAllIngredients(new DataRepository.AuthCallback<List<Ingredient>>() {
             @Override
             public void onSuccess(List<Ingredient> result) {
                 ingredients.postValue(result != null ? result : new ArrayList<>());

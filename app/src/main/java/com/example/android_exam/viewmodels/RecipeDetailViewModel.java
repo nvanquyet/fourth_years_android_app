@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.android_exam.data.local.database.AppDatabase;
 import com.example.android_exam.data.local.entity.Meal;
+import com.example.android_exam.data.remote.DataRepository;
+import com.example.android_exam.data.remote.LocalDataRepository;
 
 public class RecipeDetailViewModel extends AndroidViewModel {
 
@@ -26,7 +28,7 @@ public class RecipeDetailViewModel extends AndroidViewModel {
     }
 
     public void cookMeal(Meal meal) {
-        AppDatabase.addMeal(meal, new AppDatabase.DatabaseCallback<Meal>() {
+        LocalDataRepository.getInstance().addMeal(meal, new DataRepository.AuthCallback<Meal>() {
             @Override
             public void onSuccess(Meal result) {
                 successMessage.postValue("Meal recorded successfully!");

@@ -48,7 +48,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return ingredients.size();
+        return ingredients != null ? ingredients.size() : 0;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

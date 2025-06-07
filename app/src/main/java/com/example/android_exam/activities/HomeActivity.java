@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
-    // UI Components
     private TextView tvAiAnalysis;
     private RecyclerView rvSuggestedMeals;
     private RecyclerView rvCalorieAnalysis;
@@ -46,11 +45,11 @@ public class HomeActivity extends AppCompatActivity {
 
         // Initialize
         currentUserId = SessionManager.getCurrentUserId(this);
-//        if (currentUserId == -1) {
-//            // Redirect to login if not logged in
-//            finish();
-//            return;
-//        }
+        if (currentUserId == -1) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
 
         initViews();
         setupViewModel();

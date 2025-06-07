@@ -12,6 +12,7 @@ import com.example.android_exam.R;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -41,7 +42,6 @@ public class Ingredient {
     public double quantity;
     public String unit;
     public long expiryDateTimestamp; // Lưu dưới dạng milliseconds since epoch
-    public double caloriesPerUnit;
     public String category;
     private int iconResource;
 
@@ -50,19 +50,17 @@ public class Ingredient {
         this.quantity = 0.0;
         this.unit = "";
         this.expiryDateTimestamp = 0L;
-        this.caloriesPerUnit = 0.0;
         this.category = "";
         this.iconResource = R.drawable.ic_food_default;
     }
 
     @Ignore
     public Ingredient(@NonNull String name, double quantity, String unit, long expiryDateTimestamp,
-                      double caloriesPerUnit, String category, int iconResource) {
+                      String category, int iconResource) {
         this.name = name.isEmpty() ? "Unknown" : name;
         this.quantity = quantity;
         this.unit = unit;
         this.expiryDateTimestamp = expiryDateTimestamp;
-        this.caloriesPerUnit = caloriesPerUnit;
         this.category = category;
         this.iconResource = iconResource;
     }
@@ -81,8 +79,14 @@ public class Ingredient {
     public long getExpiryDateTimestamp() { return expiryDateTimestamp; }
     public void setExpiryDateTimestamp(long expiryDateTimestamp) { this.expiryDateTimestamp = expiryDateTimestamp; }
 
-    public double getCaloriesPerUnit() { return caloriesPerUnit; }
-    public void setCaloriesPerUnit(double caloriesPerUnit) { this.caloriesPerUnit = caloriesPerUnit; }
+    public void setExpiryDateTimestamp(String expiryDate) {
+        // Chuyển đổi chuỗi ngày tháng sang timestamp
+        LocalDate date = LocalDate.parse(expiryDate);
+        Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Date expiryDateTimestamp = Date.from(instant);
+        // Lưu timestamp dưới dạng milliseconds since epoch
+        this.expiryDateTimestamp = expiryDateTimestamp.getTime();
+    }
 
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
@@ -123,6 +127,12 @@ public class Ingredient {
             default:
                 return android.R.color.holo_green_light;
         }
+    }
+
+    public String getExpiryDate(){
+        Instant instant = Instant.ofEpochMilli(expiryDateTimestamp);
+        LocalDate date = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+        return date.toString(); // Trả về định dạng YYYY-MM-DD
     }
 
     private int getCategoryIcon(String category) {

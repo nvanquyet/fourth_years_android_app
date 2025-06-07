@@ -129,7 +129,10 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
         viewModel.getFilteredIngredients().observe(this, ingredients -> {
             ingredientAdapter = new IngredientAdapter(ingredients, this);
             rvIngredients.setAdapter(ingredientAdapter);
-            updateEmptyState(ingredients.isEmpty());
+            if (ingredients != null) {
+                updateEmptyState(ingredients.isEmpty());
+            }
+
         });
 
         // Observe categories
@@ -285,7 +288,7 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
     @Override
     public void onIngredientLongClick(Ingredient ingredient) {
         Toast.makeText(this, "Xóa " + ingredient.getName() + "?", Toast.LENGTH_SHORT).show();
-        viewModel.deleteIngredient(String.valueOf(ingredient.getId()));
+        viewModel.deleteIngredient(ingredient.getId());
     }
 
     @Override

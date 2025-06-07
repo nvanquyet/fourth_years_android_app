@@ -1,6 +1,7 @@
 package com.example.android_exam.adapters.Home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,6 +118,7 @@ public class ExpiringIngredientsAdapter extends RecyclerView.Adapter<ExpiringIng
 
         public void bind(Ingredient ingredient) {
             if (ingredient == null) return;
+
             // Set ingredient name
             tvIngredientName.setText(ingredient.getName());
 
@@ -125,11 +127,27 @@ public class ExpiringIngredientsAdapter extends RecyclerView.Adapter<ExpiringIng
 
             // Set expiry date
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            tvExpiryDate.setText(dateFormat.format(ingredient.getExpiryDate()));
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formattedDate = "N/A"; // Giá trị mặc định nếu ngày không hợp lệ
 
-            // Calculate days left and set colors
-            long daysLeft = calculateDaysLeft(ingredient.getExpiryDate());
-            setExpiryStatus(daysLeft);
+            try {
+                String expiryDateStr = ingredient.getExpiryDate();
+                Log.d("ExpiringIngredientsAdapter", "Expiry Date: " + expiryDateStr);
+
+                if (expiryDateStr != null && !expiryDateStr.isEmpty()) {
+                    Date expiryDate = inputFormat.parse(expiryDateStr);
+                    if (expiryDate != null) {
+                        formattedDate = dateFormat.format(expiryDate);
+                        // Calculate days left and set colors
+                        long daysLeft = calculateDaysLeft(expiryDate.toString());
+                        setExpiryStatus(daysLeft);
+                    }
+                }
+            } catch (ParseException e) {
+                Log.e("ExpiringIngredientsAdapter", "Failed to parse expiry date: " + ingredient.getExpiryDate(), e);
+            }
+
+            tvExpiryDate.setText(formattedDate);
 
             // Set ingredient icon based on category
             setIngredientIcon(ingredient.getCategory());

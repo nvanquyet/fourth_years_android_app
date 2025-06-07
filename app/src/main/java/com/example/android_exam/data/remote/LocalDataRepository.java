@@ -2,6 +2,7 @@ package com.example.android_exam.data.remote;
 
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 
 import com.example.android_exam.data.local.database.AppDatabase;
 import com.example.android_exam.data.local.entity.*;
@@ -151,6 +152,50 @@ public class LocalDataRepository implements DataRepository {
             }
         });
     }
+    @Override
+    public void getIngredientById(int id, AuthCallback<Ingredient> callback){
+        executor.execute(() -> {
+            try {
+                if (!validateUserId()) {
+                    callback.onError("User not logged in");
+                    return;
+                }
+                if (id <= 0) {
+                    callback.onError("Invalid ingredient ID");
+                    return;
+                }
+
+                Ingredient ingredient = database.ingredientDao().getById(id);
+                if (ingredient != null && ingredient.userId == currentUserId) {
+                    callback.onSuccess(ingredient);
+                } else {
+                    callback.onError("Ingredient not found or does not belong to the user");
+                }
+            } catch (Exception e) {
+                callback.onError("Failed to fetch ingredient: " + e.getMessage());
+            }
+        });
+    }
+
+    public void getFilteredIngredients(String filter, AuthCallback<List<Ingredient>> callback) {
+        executor.execute(() -> {
+            try {
+                if (!validateUserId()) {
+                    callback.onError("User not logged in");
+                    return;
+                }
+                if (isNullOrEmpty(filter)) {
+                    callback.onError("Filter cannot be empty");
+                    return;
+                }
+
+                List<Ingredient> ingredients = database.ingredientDao().searchByName(currentUserId, filter.trim());
+                callback.onSuccess(ingredients != null ? ingredients : new ArrayList<>());
+            } catch (Exception e) {
+                callback.onError("Failed to fetch filtered ingredients: " + e.getMessage());
+            }
+        });
+    }
 
     @Override
     public void addIngredient(Ingredient ingredient, AuthCallback<Ingredient> callback) {
@@ -233,6 +278,43 @@ public class LocalDataRepository implements DataRepository {
     }
 
     @Override
+    public void refreshIngredients(AuthCallback<List<Ingredient>> callback) {
+        executor.execute(() -> {
+            try {
+                if (!validateUserId()) {
+                    callback.onError("User not logged in");
+                    return;
+                }
+
+                // Refresh ingredients by re-fetching from database
+                List<Ingredient> ingredients = database.ingredientDao().getAllByUserId(currentUserId);
+                callback.onSuccess(ingredients != null ? ingredients : new ArrayList<>());
+            } catch (Exception e) {
+                callback.onError("Failed to refresh ingredients: " + e.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void refreshExpiringIngredients(AuthCallback<List<Ingredient>> callback) {
+        executor.execute(() -> {
+            try {
+                if (!validateUserId()) {
+                    callback.onError("User not logged in");
+                    return;
+                }
+
+                // Refresh expiring ingredients by re-fetching from database
+                List<Ingredient> expiring = database.ingredientDao().getTopExpiringIngredients(currentUserId, 10);
+                callback.onSuccess(expiring != null ? expiring : new ArrayList<>());
+            } catch (Exception e) {
+                callback.onError("Failed to refresh expiring ingredients: " + e.getMessage());
+            }
+        });
+    }
+
+
+    @Override
     public void getExpiringIngredients(int limit, AuthCallback<List<Ingredient>> callback) {
         executor.execute(() -> {
             try {
@@ -243,6 +325,7 @@ public class LocalDataRepository implements DataRepository {
 
                 final int finalLimit = Math.max(limit, 1);
                 List<Ingredient> expiring = database.ingredientDao().getTopExpiringIngredients(currentUserId, finalLimit);
+                Log.d("LocalDataRepository", "Expiring ingredients fetched: " + expiring.size());
                 callback.onSuccess(expiring != null ? expiring : new ArrayList<>());
             } catch (Exception e) {
                 callback.onError("Failed to fetch expiring ingredients: " + e.getMessage());
@@ -419,6 +502,23 @@ public class LocalDataRepository implements DataRepository {
                 callback.onSuccess(rowsUpdated > 0);
             } catch (Exception e) {
                 callback.onError("Failed to update food: " + e.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getFoodsByMealId(int mealId, AuthCallback<List<Food>> callback){
+        executor.execute(() -> {
+            try {
+                if (mealId <= 0) {
+                    callback.onError("Invalid meal ID");
+                    return;
+                }
+
+                List<Food> foods = database.foodDao().getAllInMeal(mealId);
+                callback.onSuccess(foods != null ? foods : new ArrayList<>());
+            } catch (Exception e) {
+                callback.onError("Failed to fetch foods by meal ID: " + e.getMessage());
             }
         });
     }

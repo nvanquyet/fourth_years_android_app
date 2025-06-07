@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.android_exam.R;
 import com.example.android_exam.activities.LoginActivity;
 import com.example.android_exam.activities.HomeActivity;
+import com.example.android_exam.data.local.entity.User;
+import com.example.android_exam.data.remote.LocalDataRepository;
 import com.example.android_exam.utils.SessionManager;
 import com.example.android_exam.data.local.database.AppDatabase;
 
@@ -22,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         // Initialize database
-        AppDatabase.initialize(this);
+        LocalDataRepository.getInstance(this);
 
         // Check login status after splash delay
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
@@ -31,13 +33,20 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void checkLoginStatus() {
-        if (SessionManager.isLoggedIn(this)) {
-            // User is logged in, go to main activity
-            startActivity(new Intent(this, HomeActivity.class));
-        } else {
-            // User is not logged in, go to login activity
-            startActivity(new Intent(this, LoginActivity.class));
-        }
-        finish();
+        SessionManager.checkLoginStatus(this, new SessionManager.LoginCheckCallback() {
+            @Override
+            public void onResult(boolean success, User user, String errorMessage) {
+                if(success){
+                    // User is logged in, go to main activity
+                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                } else {
+                    // User is not logged in, go to login activity
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                }
+
+                finish();
+            }
+        });
+
     }
 }

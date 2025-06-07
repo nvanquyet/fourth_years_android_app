@@ -13,6 +13,8 @@ import com.example.android_exam.data.local.database.AppDatabase;
 import com.example.android_exam.data.local.entity.*;
 import com.example.android_exam.data.models.DiaryWithMeals;
 import com.example.android_exam.data.models.MealWithFoods;
+import com.example.android_exam.data.remote.DataRepository;
+import com.example.android_exam.data.remote.LocalDataRepository;
 import com.example.android_exam.utils.DateUtils;
 import java.util.List;
 import java.util.ArrayList;
@@ -56,10 +58,10 @@ public class HomeViewModel extends AndroidViewModel {
         isLoading.setValue(true);
         String today = DateUtils.getTodayString();
 
-        AppDatabase.getTotalCaloriesByDate(currentUserId, today, new AppDatabase.DatabaseCallback<Double>() {
+        LocalDataRepository.getInstance().getTotalCaloriesByDate(today, new DataRepository.AuthCallback<Double>() {
             @Override
             public void onSuccess(Double todayCalories) {
-                AppDatabase.getNutritionGoal(currentUserId, new AppDatabase.DatabaseCallback<NutritionGoal>() {
+                LocalDataRepository.getInstance().getNutritionGoal(new DataRepository.AuthCallback<NutritionGoal>() {
                     @Override
                     public void onSuccess(NutritionGoal goal) {
                         String analysis = generateAiAnalysisText(todayCalories, goal);
@@ -119,7 +121,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     private void loadSuggestedMeals() {
-        AppDatabase.getSuggestedMeals(currentUserId, new AppDatabase.DatabaseCallback<List<Food>>() {
+        LocalDataRepository.getInstance().getSuggestedMeals(new DataRepository.AuthCallback<List<Food>>() {
             @Override
             public void onSuccess(List<Food> meals) {
                 if (meals != null && !meals.isEmpty()) {
@@ -173,29 +175,29 @@ public class HomeViewModel extends AndroidViewModel {
             return;
         }
 
-        // Chỉ tạo source một lần hoặc khi userId thay đổi
-        if (expiringIngredientsSource == null) {
-            expiringIngredientsSource = IngredientRepository.getExpiringIngredients(currentUserId);
-        }
+        // Gọi API lấy dữ liệu bất đồng bộ
+        LocalDataRepository.getInstance().getExpiringIngredients(10, new DataRepository.AuthCallback<List<Ingredient>>() {
+            @Override
+            public void onSuccess(List<Ingredient> result) {
+                isLoading.postValue(false);
+                if (result != null && !result.isEmpty()) {
+                    Log.d("HomeViewModel", "Tải được " + result.size() + " nguyên liệu sắp hết hạn");
+                    expiringIngredients.postValue(result);
+                } else {
+                    Log.d("HomeViewModel", "Danh sách nguyên liệu rỗng");
+                    expiringIngredients.postValue(new ArrayList<>());
+                }
+            }
 
-        // Sử dụng Transformations để xử lý data
-        LiveData<List<Ingredient>> transformedData = Transformations.map(expiringIngredientsSource, ingredients -> {
-            isLoading.postValue(false);
-
-            if (ingredients != null && !ingredients.isEmpty()) {
-                Log.d("HomeViewModel", "Tải được " + ingredients.size() + " nguyên liệu sắp hết hạn");
-                return ingredients;
-            } else {
-                Log.d("HomeViewModel", "Danh sách nguyên liệu rỗng");
-                return new ArrayList<>();
+            @Override
+            public void onError(String error) {
+                errorMessage.postValue("Error loading expiring ingredients: " + error);
+                expiringIngredients.postValue(new ArrayList<>());
+                isLoading.postValue(false);
             }
         });
-
-        // Set value cho expiringIngredients
-        if (transformedData.getValue() != null) {
-            expiringIngredients.setValue(transformedData.getValue());
-        }
     }
+
 
     // Alternative: Sử dụng MediatorLiveData (Recommended)
     private void loadExpiringIngredientsWithMediator() {
@@ -214,7 +216,18 @@ public class HomeViewModel extends AndroidViewModel {
         }
 
         // Get new source
-        expiringIngredientsSource = IngredientRepository.getExpiringIngredients(currentUserId);
+        LocalDataRepository.getInstance().getExpiringIngredients(10, new DataRepository.AuthCallback<List<Ingredient>>() {
+            @Override
+            public void onSuccess(List<Ingredient> result) {
+                expiringIngredientsSource = new MutableLiveData<>(result);
+            }
+
+            @Override
+            public void onError(String error) {
+                errorMessage.postValue("Error loading expiring ingredients: " + error);
+                expiringIngredientsSource = new MutableLiveData<>(new ArrayList<>());
+            }
+        });
 
         // Add source to MediatorLiveData
         if (!(expiringIngredients instanceof MediatorLiveData)) {
@@ -239,36 +252,74 @@ public class HomeViewModel extends AndroidViewModel {
 
     // Method để refresh data
     public void refreshExpiringIngredients() {
-        IngredientRepository.refreshExpiringIngredients(currentUserId);
+        LocalDataRepository.getInstance().refreshExpiringIngredients(null);
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        // Cleanup khi ViewModel bị destroy
-        IngredientRepository.clearCache();
     }
 
     private void loadCalorieAnalysis() {
         List<String> last5Days = DateUtils.getLast2Days();
         List<DiaryWithMeals> diaryList = new ArrayList<>();
+        List<String> processedDays = new ArrayList<>();
+
         for (String day : last5Days) {
-            LiveData<List<Meal>> mealsLiveData = MealRepository.getMealsByDate(currentUserId, day);
-            List<Meal> meals = mealsLiveData.getValue() != null ? mealsLiveData.getValue() : new ArrayList<>();
+            LocalDataRepository.getInstance().getMealsByDate(day, new DataRepository.AuthCallback<List<Meal>>() {
+                @Override
+                public void onSuccess(List<Meal> resultMeals) {
+                    List<Meal> meals = resultMeals != null ? resultMeals : new ArrayList<>();
+                    List<MealWithFoods> mealsWithFoods = new ArrayList<>();
 
-            List<MealWithFoods> mealsWithFoods = new ArrayList<>();
-            for (Meal meal : meals) {
-                LiveData<List<Food>> foodsLiveData = MealRepository.getFoodsByMealId(meal.id);
-                List<Food> foods = foodsLiveData.getValue() != null ? foodsLiveData.getValue() : new ArrayList<>();
-                mealsWithFoods.add(new MealWithFoods(meal, foods));
-            }
+                    if (meals.isEmpty()) {
+                        diaryList.add(new DiaryWithMeals(DateUtils.formatDateForDisplay(day), mealsWithFoods));
+                        checkIfFinished();
+                        return;
+                    }
 
-            DiaryWithMeals diaryEntry = new DiaryWithMeals(DateUtils.formatDateForDisplay(day), mealsWithFoods);
-            diaryList.add(diaryEntry);
+                    int[] mealsProcessed = {0};
+                    for (Meal meal : meals) {
+                        LocalDataRepository.getInstance().getFoodsByMealId(meal.id, new DataRepository.AuthCallback<List<Food>>() {
+                            @Override
+                            public void onSuccess(List<Food> foods) {
+                                mealsWithFoods.add(new MealWithFoods(meal, foods != null ? foods : new ArrayList<>()));
+                                mealsProcessed[0]++;
+                                if (mealsProcessed[0] == meals.size()) {
+                                    diaryList.add(new DiaryWithMeals(DateUtils.formatDateForDisplay(day), mealsWithFoods));
+                                    checkIfFinished();
+                                }
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                mealsWithFoods.add(new MealWithFoods(meal, new ArrayList<>()));
+                                mealsProcessed[0]++;
+                                if (mealsProcessed[0] == meals.size()) {
+                                    diaryList.add(new DiaryWithMeals(DateUtils.formatDateForDisplay(day), mealsWithFoods));
+                                    checkIfFinished();
+                                }
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onError(String error) {
+                    diaryList.add(new DiaryWithMeals(DateUtils.formatDateForDisplay(day), new ArrayList<>()));
+                    checkIfFinished();
+                }
+
+                private void checkIfFinished() {
+                    synchronized (processedDays) {
+                        processedDays.add(day);
+                        if (processedDays.size() == last5Days.size()) {
+                            calorieAnalysis.postValue(diaryList);
+                        }
+                    }
+                }
+            });
         }
-        calorieAnalysis.postValue(diaryList);
     }
-
-
 
 }

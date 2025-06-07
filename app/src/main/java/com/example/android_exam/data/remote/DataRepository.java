@@ -24,6 +24,9 @@ public interface DataRepository {
      * Get all ingredients for the currently logged-in user
      */
     void getAllIngredients(AuthCallback<List<Ingredient>> callback);
+    void getIngredientById(int id, AuthCallback<Ingredient> callback);
+
+    void getFilteredIngredients(String filter, AuthCallback<List<Ingredient>> callback);
 
     /**
      * Add a new ingredient for the currently logged-in user
@@ -39,6 +42,9 @@ public interface DataRepository {
      * Delete an ingredient by ID
      */
     void deleteIngredient(int ingredientId, AuthCallback<Boolean> callback);
+
+    void refreshIngredients(AuthCallback<List<Ingredient>> callback);
+    void refreshExpiringIngredients(AuthCallback<List<Ingredient>> callback);
 
     /**
      * Get ingredients that are expiring soon for the currently logged-in user
@@ -84,6 +90,11 @@ public interface DataRepository {
      * Update an existing food item
      */
     void updateFood(Food food, AuthCallback<Boolean> callback);
+
+    /**
+     * get a food item by ID
+     */
+    void getFoodsByMealId(int mealId, AuthCallback<List<Food>> callback);
 
     // ========== NUTRITION GOALS ==========
     /**

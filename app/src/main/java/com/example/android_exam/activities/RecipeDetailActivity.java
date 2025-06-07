@@ -80,8 +80,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         btnCookMeal.setOnClickListener(v -> {
             Meal meal = new Meal();
             meal.userId = userId;
-            meal.date = DateUtils.getTodayString();
-            meal.mealType = MealType.LUNCH; // Default, can be customized
+            //meal.date = DateUtils.getTodayString();
+            //meal.mealType = MealType.LUNCH; // Default, can be customized
             meal.totalCalories = mealCalories;
             viewModel.cookMeal(meal);
         });
