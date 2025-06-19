@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.android_exam.data.local.entity.NutritionGoal;
 import com.example.android_exam.data.remote.DataRepository;
-import com.example.android_exam.data.remote.LocalDataRepository;
 import com.example.android_exam.utils.DateUtils;
 
 public class NutritionAnalysisViewModel extends AndroidViewModel {

@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.android_exam.data.local.database.AppDatabase;
 import com.example.android_exam.data.local.entity.Meal;
 import com.example.android_exam.data.remote.DataRepository;
-import com.example.android_exam.data.remote.LocalDataRepository;
 
 public class RecipeDetailViewModel extends AndroidViewModel {
 

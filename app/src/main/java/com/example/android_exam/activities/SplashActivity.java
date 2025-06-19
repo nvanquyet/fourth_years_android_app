@@ -7,10 +7,7 @@ import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android_exam.R;
-import com.example.android_exam.activities.LoginActivity;
-import com.example.android_exam.activities.HomeActivity;
 import com.example.android_exam.data.local.entity.User;
-import com.example.android_exam.data.remote.LocalDataRepository;
 import com.example.android_exam.utils.SessionManager;
 import com.example.android_exam.data.local.database.AppDatabase;
 

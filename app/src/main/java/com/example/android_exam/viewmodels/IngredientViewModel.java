@@ -8,16 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.android_exam.R;
 import com.example.android_exam.data.local.entity.Ingredient;
 import com.example.android_exam.data.remote.DataRepository;
-import com.example.android_exam.data.remote.LocalDataRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;

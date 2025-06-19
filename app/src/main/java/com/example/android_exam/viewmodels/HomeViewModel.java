@@ -7,14 +7,12 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 
 import com.example.android_exam.data.local.database.AppDatabase;
 import com.example.android_exam.data.local.entity.*;
 import com.example.android_exam.data.models.DiaryWithMeals;
 import com.example.android_exam.data.models.MealWithFoods;
 import com.example.android_exam.data.remote.DataRepository;
-import com.example.android_exam.data.remote.LocalDataRepository;
 import com.example.android_exam.utils.DateUtils;
 import java.util.List;
 import java.util.ArrayList;

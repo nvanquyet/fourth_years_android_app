@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.android_exam.data.local.database.AppDatabase;
 import com.example.android_exam.data.local.entity.Ingredient;
-import com.example.android_exam.data.remote.LocalDataRepository;
 import com.example.android_exam.data.remote.DataRepository;
+import com.example.android_exam.data.remote.RemoteDataRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class IngredientsViewModel extends AndroidViewModel {
     }
 
     public void loadIngredients(int userId) {
-        LocalDataRepository.getInstance().getAllIngredients(new DataRepository.AuthCallback<List<Ingredient>>() {
+        RemoteDataRepository.getInstance().getAllIngredients(new DataRepository.AuthCallback<List<Ingredient>>() {
             @Override
             public void onSuccess(List<Ingredient> result) {
                 ingredients.postValue(result != null ? result : new ArrayList<>());

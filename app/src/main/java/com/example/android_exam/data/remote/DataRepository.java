@@ -1,6 +1,10 @@
 package com.example.android_exam.data.remote;
+import com.example.android_exam.data.models.Food;
+import com.example.android_exam.data.models.Ingredient;
+import com.example.android_exam.data.models.Meal;
+import com.example.android_exam.data.models.enums.NutritionGoal;
+import com.example.android_exam.data.models.User;
 
-import com.example.android_exam.data.local.entity.*;
 import java.util.List;
 
 /**
@@ -16,7 +20,10 @@ public interface DataRepository {
 
     // ========== USER AUTHENTICATION ==========
     void login(String username, String password, AuthCallback<User> callback);
-    void register(String username, String password, AuthCallback<User> callback);
+    void getUserInformation(String token, AuthCallback<User> callback);
+
+    void register(String username, String password, String email, AuthCallback<User> callback);
+
     void logout(AuthCallback<Boolean> callback);
 
     // ========== INGREDIENTS MANAGEMENT ==========

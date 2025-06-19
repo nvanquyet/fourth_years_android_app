@@ -13,10 +13,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android_exam.R;
-import com.example.android_exam.data.local.database.AppDatabase;
-import com.example.android_exam.data.local.entity.User;
-import com.example.android_exam.data.remote.LocalDataRepository;
+import com.example.android_exam.data.models.User;
 import com.example.android_exam.data.remote.DataRepository;
+import com.example.android_exam.data.remote.RemoteDataRepository;
 import com.example.android_exam.utils.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Kiểm tra trạng thái đăng nhập bất đồng bộ
         SessionManager.checkLoginStatus(this, new SessionManager.LoginCheckCallback() {
             @Override
             public void onResult(boolean success, User user, String errorMessage) {
@@ -42,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     runOnUiThread(() -> {
                         setContentView(R.layout.activity_login);
-                        LocalDataRepository.getInstance(LoginActivity.this);
+                        RemoteDataRepository.getInstance(LoginActivity.this);
                         initViews();
                         setupClickListeners();
                     });
@@ -84,20 +82,16 @@ public class LoginActivity extends AppCompatActivity {
 
         showLoading(true);
 
-        LocalDataRepository.getInstance().login(username, password, new DataRepository.AuthCallback<User>() {
+        RemoteDataRepository.getInstance().login(username, password, new DataRepository.AuthCallback<User>() {
             @Override
             public void onSuccess(User user) {
                 runOnUiThread(() -> {
                     showLoading(false);
                     if (user != null) {
-                        // Save session
-                        SessionManager.saveUserSession(LoginActivity.this,user.id, user.username, user.getHashedPassword());
-
                         // Navigate to main activity
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
-
                         Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(LoginActivity.this, "Tên đăng nhập hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
@@ -118,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
     private void performRegister() {
         String username = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
+        String email = etUsername.getText().toString().trim();
 
         if (!validateInput(username, password)) {
             return;
@@ -130,15 +125,11 @@ public class LoginActivity extends AppCompatActivity {
 
         showLoading(true);
 
-        LocalDataRepository.getInstance().register(username, password, new DataRepository.AuthCallback<User>() {
+        RemoteDataRepository.getInstance().register(username, password, email, new DataRepository.AuthCallback<User>() {
             @Override
             public void onSuccess(User user) {
                 runOnUiThread(() -> {
                     showLoading(false);
-
-                    // Save session
-                    SessionManager.saveUserSession(LoginActivity.this, user.id, user.username, user.getHashedPassword());
-
                     // Navigate to main activity
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
