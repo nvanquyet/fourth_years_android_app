@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="12dp"
+    android:background="@drawable/food_item_background"
+    android:layout_marginBottom="8dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/iv_food_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_food_placeholder"
+        android:background="@drawable/food_image_background"
+        android:scaleType="centerCrop"
+        android:layout_marginEnd="12dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_food_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bánh mì trứng"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#2C3E50"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <!-- Macros Summary -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Protein: "
+                android:textColor="@color/nutrition_protein"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_food_protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12g"
+                android:textSize="10sp"
+                android:textColor="@color/nutrition_protein"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Carb: "
+                android:textSize="10sp"
+                android:textColor="@color/nutrition_carbs"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_food_carbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="35g"
+                android:textSize="10sp"
+                android:textColor="@color/nutrition_carbs"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fat: "
+                android:textSize="10sp"
+                android:textColor="@color/nutrition_fat"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_food_fat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8g"
+                android:textSize="10sp"
+                android:textColor="@color/nutrition_fat"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fiber: "
+                android:textSize="10sp"
+                android:textColor="@color/nutrition_fiber"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_food_fiber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8g"
+                android:textSize="10sp"
+                android:textColor="@color/nutrition_fiber" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_food_calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="245 kcal"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="#E74C3C"
+        android:layout_marginStart="8dp" />
+
+</LinearLayout>

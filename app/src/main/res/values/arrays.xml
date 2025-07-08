@@ -2,36 +2,41 @@
 <resources>
     <!-- Units of measurement -->
     <string-array name="measurement_units">
-        <item>kg</item>
-        <item>gram</item>
-        <item>lít</item>
-        <item>ml</item>
-        <item>cái</item>
-        <item>gói</item>
-        <item>hộp</item>
-        <item>chai</item>
-        <item>lon</item>
-        <item>túi</item>
+        <item>kg</item>              <!-- KILOGRAM -->
+        <item>l</item>               <!-- LITER -->
+        <item>cái</item>             <!-- PIECE -->
+        <item>hộp</item>             <!-- BOX -->
+        <item>g</item>               <!-- GRAM -->
+        <item>ml</item>              <!-- MILLILITER -->
+        <item>lon</item>             <!-- CAN -->
+        <item>cốc</item>             <!-- CUP -->
+        <item>muỗng canh</item>      <!-- TABLESPOON -->
+        <item>muỗng cà phê</item>    <!-- TEASPOON -->
+        <item>gói</item>             <!-- PACKAGE -->
+        <item>chai</item>            <!-- BOTTLE -->
+        <item>khác</item>            <!-- OTHER -->
     </string-array>
 
     <!-- Categories -->
     <string-array name="ingredient_categories">
-        <item>Rau củ</item>
-        <item>Thịt cá</item>
-        <item>Gia vị</item>
-        <item>Ngũ cốc</item>
-        <item>Trái cây</item>
         <item>Sữa</item>
+        <item>Thịt</item>
+        <item>Rau củ</item>
+        <item>Trái cây</item>
+        <item>Ngũ cốc</item>
+        <item>Hải sản</item>
         <item>Đồ uống</item>
-        <item>Đồ khô</item>
-        <item>Khác</item>
+        <item>Gia vị</item>
+        <item>Đồ ăn vặt</item>
+        <item>Đông lạnh</item>
+        <item>Đóng hộp</item>
+        <item>Gia vị khô</item>
     </string-array>
 
     <!-- Expiry status filters -->
     <string-array name="expiry_filters">
         <item>Tất cả</item>
-        <item>Còn tốt</item>
-        <item>Sắp hết hạn</item>
+        <item>Chưa hết hạn</item>
         <item>Đã hết hạn</item>
     </string-array>
 
@@ -42,4 +47,7 @@
         <item>Số lượng</item>
         <item>Danh mục</item>
     </string-array>
+
+
+
 </resources>

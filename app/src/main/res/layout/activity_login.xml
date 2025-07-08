@@ -73,8 +73,6 @@
                     app:hintTextColor="@color/primary_green"
                     app:boxStrokeColor="@color/primary_green"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-<!--                    app:startIconDrawable="@drawable/ic_person"-->
-
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_username"
@@ -82,6 +80,27 @@
                         android:layout_height="wrap_content"
                         android:hint="Tên đăng nhập"
                         android:inputType="textNoSuggestions"
+                        android:maxLines="1" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Email Input (Visible only in Register mode) -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone"
+                    app:hintTextColor="@color/primary_green"
+                    app:boxStrokeColor="@color/primary_green"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress"
                         android:maxLines="1" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -95,7 +114,7 @@
                     app:hintTextColor="@color/primary_green"
                     app:boxStrokeColor="@color/primary_green"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-<!--                    app:startIconDrawable="@drawable/ic_lock"-->
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_password"
                         android:layout_width="match_parent"
@@ -181,8 +200,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/ic_ingredients"
-                    android:tint="@color/primary_green"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="4dp"
+                    app:tint="@color/primary_green" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -205,8 +224,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/ic_ai_suggestion"
-                    android:tint="@color/primary_green"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="4dp"
+                    app:tint="@color/primary_green" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -229,8 +248,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/ic_nutrition"
-                    android:tint="@color/primary_green"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="4dp"
+                    app:tint="@color/primary_green" />
 
                 <TextView
                     android:layout_width="wrap_content"

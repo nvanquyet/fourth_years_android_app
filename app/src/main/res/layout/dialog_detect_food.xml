@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Khu vực upload ảnh -->
+    <ImageView
+        android:id="@+id/imagePreview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#cccccc"
+        android:scaleType="centerCrop"
+        android:contentDescription="Ảnh món ăn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSelectImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chọn ảnh"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:cornerRadius="8dp" />
+
+    <!-- TextArea -->
+    <EditText
+        android:id="@+id/foodName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Tên món ăn"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:background="@android:drawable/editbox_background"
+        android:padding="8dp" />
+
+    <!-- Nút bấm -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:paddingTop="8dp">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDetect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phát hiện"
+            app:backgroundTint="@color/colorPrimaryDark"
+            app:cornerRadius="8dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chi tiết"
+            app:backgroundTint="@color/colorPrimaryDark"
+            app:cornerRadius="8dp" />
+
+    </LinearLayout>
+</LinearLayout>

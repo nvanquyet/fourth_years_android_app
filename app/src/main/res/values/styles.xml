@@ -1,162 +1,389 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Card Styles -->
-    <style name="CardStyle.Meal" parent="Widget.MaterialComponents.CardView">
-        <item name="cardCornerRadius">@dimen/card_corner_radius_large</item>
-        <item name="cardElevation">@dimen/card_elevation</item>
-        <item name="strokeWidth">@dimen/card_stroke_width</item>
-        <item name="strokeColor">@color/card_stroke_color</item>
+    <!-- ========== BASE THEMES ========== -->
+
+    <!-- Main Application Theme -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/background_primary</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="actionBarStyle">@style/CustomActionBarStyle</item>
+        <item name="actionBarTheme">@style/CustomActionBarTheme</item>
     </style>
 
-    <style name="CardStyle.Food" parent="Widget.MaterialComponents.CardView">
-        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
-        <item name="cardElevation">@dimen/card_elevation_small</item>
-        <item name="strokeWidth">@dimen/card_stroke_width</item>
-        <item name="strokeColor">@color/card_stroke_color</item>
+    <!-- Splash Screen Theme -->
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/background_primary</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
-    <!-- Text Styles -->
-    <style name="TextStyle.Title" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textColor">@color/text_primary</item>
+    <!-- Authentication Theme -->
+    <style name="AuthTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/background_primary</item>
+        <item name="android:statusBarColor">@color/primary_light</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- ========== ACTIONBAR STYLES ========== -->
+
+    <style name="CustomActionBarStyle" parent="Widget.MaterialComponents.ActionBar.Solid">
+        <item name="background">@color/primary</item>
+        <item name="elevation">4dp</item>
+        <item name="titleTextStyle">@style/ActionBarTitleText</item>
+    </style>
+
+    <style name="CustomActionBarTheme" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/text_on_primary</item>
+        <item name="colorControlNormal">@color/text_on_primary</item>
+    </style>
+
+    <style name="ActionBarTitleText" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/text_on_primary</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
-    <style name="TextStyle.Body" parent="TextAppearance.MaterialComponents.Body2">
+    <!-- AppBar/Popup Overlays -->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@color/primary</item>
+        <item name="android:textColorPrimary">@color/text_on_primary</item>
+        <item name="colorControlNormal">@color/text_on_primary</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:background">@color/background_surface</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+    </style>
+
+    <!-- ========== TEXT STYLES ========== -->
+
+    <!-- Main Text Styles -->
+    <style name="Text.Title" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textColor">@color/text_primary</item>
-        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:layout_marginBottom">16dp</item>
     </style>
 
-    <style name="TextStyle.Caption" parent="TextAppearance.MaterialComponents.Caption">
+    <style name="Text.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="Text.Body" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
-    <!-- Chip Styles -->
-    <style name="ChipStyle.Priority" parent="Widget.MaterialComponents.Chip.Action">
-        <item name="chipBackgroundColor">@color/priority_background</item>
-        <item name="android:textColor">@color/priority_text</item>
-        <item name="chipCornerRadius">@dimen/chip_corner_radius</item>
-        <item name="chipMinHeight">@dimen/chip_min_height</item>
+    <style name="Text.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
-    <style name="ChipStyle.Category" parent="Widget.MaterialComponents.Chip.Action">
-        <item name="chipBackgroundColor">@color/category_background</item>
-        <item name="android:textColor">@color/category_text</item>
-        <item name="chipCornerRadius">@dimen/chip_corner_radius_small</item>
-        <item name="chipMinHeight">@dimen/chip_min_height_small</item>
+    <!-- Section Text Styles -->
+    <style name="Text.SectionTitle" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:layout_marginBottom">12dp</item>
     </style>
 
-    <!-- Button Styles -->
-    <style name="ButtonStyle.Text" parent="Widget.MaterialComponents.Button.TextButton">
+    <!-- Value Text Style -->
+    <style name="Text.Value">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/success</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <!-- ========== CARD STYLES ========== -->
+
+    <!-- Base Card Style -->
+    <style name="Card.Base" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/card_background</item>
+        <item name="strokeColor">@color/card_stroke</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <!-- Standard Card -->
+    <style name="Card.Standard" parent="Card.Base">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+
+    <!-- Meal Card -->
+    <style name="Card.Meal" parent="Card.Base">
+        <item name="cardCornerRadius">@dimen/card_corner_radius_large</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="strokeWidth">@dimen/card_stroke_width</item>
+    </style>
+
+    <!-- Food Item Card -->
+    <style name="Card.Food" parent="Card.Base">
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardElevation">@dimen/card_elevation_small</item>
+        <item name="strokeWidth">@dimen/card_stroke_width</item>
+    </style>
+
+    <!-- Food Item Card for Lists -->
+    <style name="Card.FoodItem" parent="Card.Base">
+        <item name="android:layout_width">160dp</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <!-- ========== BUTTON STYLES ========== -->
+
+    <!-- Primary Button -->
+    <style name="Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/text_on_primary</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <!-- Secondary Button -->
+    <style name="Button.Secondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="strokeColor">@color/primary</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <!-- Text Button -->
+    <style name="Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="cornerRadius">@dimen/button_corner_radius</item>
         <item name="iconSize">@dimen/button_icon_size</item>
         <item name="iconGravity">textStart</item>
+        <item name="android:textColor">@color/text_secondary</item>
     </style>
 
-    <style name="ButtonStyle.Action" parent="Widget.MaterialComponents.Button.TextButton">
+    <!-- Action Button -->
+    <style name="Button.Action" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="cornerRadius">@dimen/action_button_corner_radius</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
         <item name="android:insetLeft">0dp</item>
         <item name="android:insetRight">0dp</item>
-    </style>
-    <style name="SectionTitleText" parent="TextAppearance.AppCompat.Medium">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">#000</item>
-    </style>
-
-    <!-- Base Application Theme -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/primary_green</item>
-        <item name="colorPrimaryDark">@color/primary_green_dark</item>
-        <item name="colorAccent">@color/accent_orange</item>
-        <item name="android:windowBackground">@color/background_primary</item>
-        <item name="android:textColorPrimary">@color/text_primary</item>
-        <item name="android:textColorSecondary">@color/text_secondary</item>
-    </style>
-
-    <!-- Splash Theme -->
-    <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary_green</item>
-        <item name="colorPrimaryDark">@color/primary_green_dark</item>
-        <item name="colorAccent">@color/accent_orange</item>
-        <item name="android:windowBackground">@drawable/splash_background</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <!-- Auth Theme -->
-    <style name="AuthTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary_green</item>
-        <item name="colorPrimaryDark">@color/primary_green_dark</item>
-        <item name="colorAccent">@color/accent_orange</item>
-        <item name="android:windowBackground">@drawable/auth_background</item>
-        <item name="android:statusBarColor">@color/primary_green_light</item>
-        <item name="android:windowLightStatusBar">true</item>
-    </style>
-
-    <!-- Custom Button Style -->
-    <style name="PrimaryButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_height">56dp</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="backgroundTint">@color/primary_green</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="cornerRadius">12dp</item>
-        <item name="android:elevation">4dp</item>
-    </style>
-
-    <!-- Secondary Button Style -->
-    <style name="SecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:layout_height">56dp</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="strokeColor">@color/primary_green</item>
-        <item name="android:textColor">@color/primary_green</item>
-        <item name="cornerRadius">12dp</item>
-    </style>
-
-    <!-- Text Input Style -->
-    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/primary_green</item>
-        <item name="hintTextColor">@color/primary_green</item>
-        <item name="android:textColorHint">@color/text_hint</item>
-    </style>
-
-    <!-- Card Style -->
-    <style name="CustomCard" parent="Widget.MaterialComponents.CardView">
-        <item name="cardCornerRadius">12dp</item>
-        <item name="cardElevation">4dp</item>
-        <item name="cardBackgroundColor">@color/background_card</item>
-        <item name="android:layout_margin">8dp</item>
-    </style>
-
-    <!-- Title Text Style -->
-    <style name="TitleText">
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_primary</item>
-        <item name="android:layout_marginBottom">16dp</item>
     </style>
-
-    <!-- Subtitle Text Style -->
-    <style name="SubtitleText">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/text_secondary</item>
-        <item name="android:layout_marginBottom">8dp</item>
-    </style>
-
-    <!-- Body Text Style -->
-    <style name="BodyText">
+    <style name="Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/text_primary</item>
-        <item name="android:lineSpacingExtra">4dp</item>
+    </style>
+    <!-- Quick Action Button -->
+    <style name="Button.QuickAction">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:background">@drawable/ripple_effect</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center</item>
     </style>
 
-    <!-- Caption Text Style -->
-    <style name="CaptionText">
+    <!-- ========== CHIP STYLES ========== -->
+
+    <!-- Base Chip Style -->
+    <style name="Chip.Base" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">@color/chip_background</item>
+        <item name="android:textColor">@color/chip_text</item>
+        <item name="chipStrokeColor">@color/chip_stroke</item>
+        <item name="chipStrokeWidth">1dp</item>
+    </style>
+
+    <!-- Priority Chip -->
+    <style name="Chip.Priority" parent="Chip.Base">
+        <item name="chipCornerRadius">@dimen/chip_corner_radius</item>
+        <item name="chipMinHeight">@dimen/chip_min_height</item>
+    </style>
+
+    <!-- Category Chip -->
+    <style name="Chip.Category" parent="Chip.Base">
+        <item name="chipCornerRadius">@dimen/chip_corner_radius_small</item>
+        <item name="chipMinHeight">@dimen/chip_min_height_small</item>
+    </style>
+
+    <!-- ========== INPUT STYLES ========== -->
+
+    <style name="TextInput.Standard" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/background_surface</item>
+        <item name="boxStrokeColor">@color/primary</item>
+        <item name="hintTextColor">@color/text_hint</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+    </style>
+
+    <!-- ========== PROGRESS BAR STYLES ========== -->
+    <!-- Base ProgressBar Style -->
+    <style name="ProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!-- Base Progress Bar -->
+    <style name="ProgressBar.Base">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">8dp</item>
+        <item name="android:progressBackgroundTint">@color/divider</item>
+    </style>
+
+    <!-- Horizontal Progress Bar -->
+    <style name="ProgressBar.Horizontal" parent="ProgressBar.Base">
+        <item name="android:progressTint">@color/primary</item>
+    </style>
+
+    <!-- Nutrition Progress Base -->
+    <style name="ProgressBar.Nutrition" parent="ProgressBar.Base">
+        <item name="android:layout_width">60dp</item>
+    </style>
+
+    <!-- Specific Nutrition Progress Bars -->
+    <style name="ProgressBar.Protein" parent="ProgressBar.Nutrition">
+        <item name="android:progressTint">@color/nutrition_protein</item>
+    </style>
+
+    <style name="ProgressBar.Carbs" parent="ProgressBar.Nutrition">
+        <item name="android:progressTint">@color/nutrition_carbs</item>
+    </style>
+
+    <style name="ProgressBar.Fat" parent="ProgressBar.Nutrition">
+        <item name="android:progressTint">@color/nutrition_fat</item>
+    </style>
+
+    <style name="ProgressBar.Fiber" parent="ProgressBar.Nutrition">
+        <item name="android:progressTint">@color/nutrition_fiber</item>
+    </style>
+
+    <!-- ========== LAYOUT STYLES ========== -->
+    <style name="Layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!-- Section Container -->
+    <style name="Layout.Section">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
+
+    <!-- Personal Info Item -->
+    <style name="Layout.PersonalInfo">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Text" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <!-- Base Text.PersonalInfo Style -->
+    <style name="Text.PersonalInfo" parent="Text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+    <!-- Personal Info Text Styles -->
+    <style name="Text.PersonalInfo.Label">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/text_secondary</item>
+        <item name="fontFamily">@font/roboto_regular</item>
     </style>
+
+    <style name="Text.PersonalInfo.Value">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <!-- ========== LEGACY ALIASES (Deprecated - Use above styles) ========== -->
+
+    <!-- Card Aliases -->
+    <style name="CardStyle.Meal" parent="Card.Meal" />
+    <style name="CardStyle.Food" parent="Card.Food" />
+    <style name="CardViewStyle" parent="Card.Standard" />
+    <style name="CustomCard" parent="Card.Standard" />
+    <style name="FoodItemCard" parent="Card.FoodItem" />
+
+    <!-- Text Aliases -->
+    <style name="TextStyle.Title" parent="Text.Title" />
+    <style name="TextStyle.Body" parent="Text.Body" />
+    <style name="TextStyle.Caption" parent="Text.Caption" />
+    <style name="SectionTitleText" parent="Text.SectionTitle" />
+    <style name="TitleText" parent="Text.Title" />
+    <style name="SubtitleText" parent="Text.Subtitle" />
+    <style name="BodyText" parent="Text.Body" />
+    <style name="CaptionText" parent="Text.Caption" />
+    <style name="TextTitle" parent="Text.Title" />
+    <style name="TextSubtitle" parent="Text.Subtitle" />
+    <style name="TextBody" parent="Text.Body" />
+    <style name="TextCaption" parent="Text.Caption" />
+    <style name="TextValue" parent="Text.Value" />
+    <style name="SectionTitle" parent="Text.SectionTitle" />
+
+    <!-- Button Aliases -->
+    <style name="ButtonStyle.Text" parent="Button.Text" />
+    <style name="ButtonStyle.Action" parent="Button.Action" />
+    <style name="PrimaryButton" parent="Button.Primary" />
+    <style name="SecondaryButton" parent="Button.Secondary" />
+    <style name="QuickActionButton" parent="Button.QuickAction" />
+
+    <!-- Chip Aliases -->
+    <style name="ChipStyle.Priority" parent="Chip.Priority" />
+    <style name="ChipStyle.Category" parent="Chip.Category" />
+
+    <!-- Input Aliases -->
+    <style name="CustomTextInputLayout" parent="TextInput.Standard" />
+
+    <!-- Progress Bar Aliases -->
+    <style name="HorizontalProgressBar" parent="ProgressBar.Horizontal" />
+    <style name="NutritionProgressBar" parent="ProgressBar.Nutrition" />
+    <style name="ProteinProgress" parent="ProgressBar.Protein" />
+    <style name="CarbsProgress" parent="ProgressBar.Carbs" />
+    <style name="FatProgress" parent="ProgressBar.Fat" />
+    <style name="FiberProgress" parent="ProgressBar.Fiber" />
+
+    <!-- Layout Aliases -->
+    <style name="SectionContainer" parent="Layout.Section" />
+    <style name="PersonalInfoItem" parent="Layout.PersonalInfo" />
+    <style name="PersonalInfoLabel" parent="Text.PersonalInfo.Label" />
+    <style name="PersonalInfoValue" parent="Text.PersonalInfo.Value" />
+
+    <!-- ActionBar Aliases -->
+    <style name="CustomActionBarTitleText" parent="ActionBarTitleText" />
+
 </resources>
