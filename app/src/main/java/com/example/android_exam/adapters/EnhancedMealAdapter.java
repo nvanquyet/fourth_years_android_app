@@ -51,6 +51,11 @@ public class EnhancedMealAdapter extends RecyclerView.Adapter<EnhancedMealAdapte
         this.meals.clear();
         this.meals.addAll(newMeals);
 
+        // Debug log
+        for (NutritionDto meal : newMeals) {
+            Log.d(TAG, "Meal type: " + meal.getMealType().toString());
+        }
+
         // Initialize expanded states
         this.expandedStates.clear();
         for (int i = 0; i < newMeals.size(); i++) {

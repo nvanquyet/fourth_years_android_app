@@ -469,6 +469,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onSuccess(ApiResponse<UserProfileDto> result) {
                 runOnUiThread(() -> {
+                    // ⭐ QUAN TRỌNG: Update cache với data mới
+                    if (result.getData() != null) {
+                        User updatedUser = result.getData().toUser();
+                        SessionManager.saveUser(updatedUser); // Cập nhật cache
+                    }
+
                     Toast.makeText(ProfileActivity.this,
                             "Cập nhật hồ sơ thành công!", Toast.LENGTH_SHORT).show();
                     isDataChanged = false;

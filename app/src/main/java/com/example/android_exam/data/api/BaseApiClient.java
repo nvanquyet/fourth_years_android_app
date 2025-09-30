@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class BaseApiClient {
-    protected static final String BASE_URL = "http://52.187.131.203:80/api/";
+    protected static final String BASE_URL = "http://20.6.33.23:80/api/";
     private static final int TIMEOUT_SECONDS = 30;
 
     private OkHttpClient httpClient;

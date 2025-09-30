@@ -32,14 +32,15 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvTitle, tvSwitchText;
     private ProgressBar progressBar;
     private TextInputLayout tilEmail;
-
     private boolean isLoginMode = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ApiManager.getInstance().setAuthToken(null);
+        //ApiManager.getInstance().setAuthToken(null);
+        //Clear cached user
+        SessionManager.clearSession();
         initViews();
         setupClickListeners();
     }

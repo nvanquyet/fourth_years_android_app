@@ -34,8 +34,8 @@ public enum Gender implements Serializable {
     }
 
     public static Gender parseGender(String genderString) {
-        if (genderString == null) {
-            throw new IllegalArgumentException("Gender string is null");
+        if (genderString == null || genderString.isEmpty()) {
+            genderString = "nam";
         }
 
         return switch (genderString.trim().toLowerCase()) {
