@@ -5,17 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_exam.R;
 import com.example.android_exam.adapters.FoodSuggestionsAdapter;
@@ -29,9 +24,12 @@ import com.example.android_exam.data.dto.response.ApiResponse;
 import com.example.android_exam.data.models.base.User;
 import com.example.android_exam.databinding.ActivityHomeBinding;
 import com.example.android_exam.module.image.ImagePickerHelper;
-import com.example.android_exam.utils.LinkedHashMapUtils;
 import com.example.android_exam.viewmodels.HomeViewModel;
 import com.google.android.material.navigation.NavigationView;
+
+import android.appwidget.AppWidgetManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
 
 import java.math.BigDecimal;
 
@@ -100,6 +98,7 @@ public class HomeActivity extends BaseActivity {
         if (!ImagePickerHelper.isInitialized(this)) {
             ImagePickerHelper.initialize(this);
         }
+
     }
 
     @Override
@@ -296,7 +295,6 @@ public class HomeActivity extends BaseActivity {
                     user.getTDEE() != null ? String.format("%.2f", user.getTDEE()) : "N/A");
         }
     }
-
 
 
     private void setupClickListeners() {

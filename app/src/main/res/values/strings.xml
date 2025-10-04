@@ -5,6 +5,9 @@
     <string name="open_ai_key">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</string>
 
 
+    <string name="widget_nutrition_overview_label">📈 Tổng quan dinh dưỡng</string>
+    <string name="widget_nutrition_overview_desc">Xem nhanh kcal và macro hằng ngày.</string>
+
     <string name="manage_ingredient">Quản lý thực phẩm</string>
     <string name="has_expiring_ingredient">Có %d thực phẩm sắp hết hạn</string>
     <string name="find_ingredient">Tìm kiếm thực phẩm</string>

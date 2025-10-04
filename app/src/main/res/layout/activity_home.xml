@@ -547,6 +547,15 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+                <Button
+                    android:id="@+id/btnPinWidget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Thêm widget ra màn hình chính"
+                    android:onClick="onPinWidgetClicked"
+                    android:layout_margin="12dp"/>
+
+
                 <!-- Thông tin cá nhân -->
                 <TextView
                     android:layout_width="wrap_content"
