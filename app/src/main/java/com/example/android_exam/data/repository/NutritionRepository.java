@@ -45,6 +45,7 @@ public class NutritionRepository {
         Log.d("NutritionRepository", "getDailyNutrition called for date: " + date);
         String dateKey = dateFormat.format(date);
         if (dailyCache.containsKey(dateKey)) {
+            Log.d("NutritionRepository", "Returning cached data for date: " + dateKey);
             callback.onSuccess(dailyCache.get(dateKey));
             return;
         }
@@ -53,7 +54,12 @@ public class NutritionRepository {
             @Override
             public void onUserLoaded(User user) {
                 var userNutritionRequest = new UserNutritionRequestDto();
-                userNutritionRequest.setCurrentDate(date);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                cal.add(Calendar.DAY_OF_MONTH, -1);
+                Date adjustedDate = cal.getTime();
+                userNutritionRequest.setCurrentDate(adjustedDate); // Dùng ngày đã lùi
+                //userNutritionRequest.setCurrentDate(date);
                 userNutritionRequest.setUserInformationDto(user.toUserInformationDto());
                 ApiManager.getInstance().getNutritionClient().getDailyNutritionSummary(userNutritionRequest, new DataCallback<ApiResponse<DailyNutritionSummaryDto>>() {
                     @Override
@@ -61,6 +67,7 @@ public class NutritionRepository {
                         //Add to cache
                         dailyCache.put(dateKey, result.getData());
                         callback.onSuccess(result.getData());
+                        Log.d("NutritionRepository", "Fetched from server for date: " + result.getData().toString());
                     }
 
                     @Override

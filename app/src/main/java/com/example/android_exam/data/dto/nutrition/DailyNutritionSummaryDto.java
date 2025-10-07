@@ -1,5 +1,7 @@
 package com.example.android_exam.data.dto.nutrition;
 
+import androidx.annotation.NonNull;
+
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -57,4 +59,25 @@ public class DailyNutritionSummaryDto {
 
     public List<NutritionDto> getMealBreakdown() { return mealBreakdown; }
     public void setMealBreakdown(List<NutritionDto> mealBreakdown) { this.mealBreakdown = mealBreakdown; }
+
+
+    @NonNull
+    @Override
+    public String toString() {
+        //Convert to json string
+        return "DailyNutritionSummaryDto{" +
+                "date=" + date +
+                ", totalCalories=" + totalCalories +
+                ", totalProtein=" + totalProtein +
+                ", totalCarbs=" + totalCarbs +
+                ", totalFat=" + totalFat +
+                ", totalFiber=" + totalFiber +
+                ", targetCalories=" + targetCalories +
+                ", targetProtein=" + targetProtein +
+                ", targetCarbs=" + targetCarbs +
+                ", targetFat=" + targetFat +
+                ", targetFiber=" + targetFiber +
+                ", mealBreakdown=" + mealBreakdown +
+                '}';
+    }
 }

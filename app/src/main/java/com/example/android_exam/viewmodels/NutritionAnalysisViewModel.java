@@ -1,5 +1,7 @@
 package com.example.android_exam.viewmodels;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -41,6 +43,7 @@ public class NutritionAnalysisViewModel extends ViewModel {
     }
 
     public void loadDailyNutrition(Date date) {
+        Log.d("NutritionViewModel", "Loading daily nutrition for date: " + date);
         isLoading.setValue(true);
         currentDate.setValue(date);
         repository.getDailyNutrition(date, new NutritionRepository.Callback<DailyNutritionSummaryDto>() {
@@ -48,6 +51,7 @@ public class NutritionAnalysisViewModel extends ViewModel {
             public void onSuccess(DailyNutritionSummaryDto result) {
                 dailyNutrition.postValue(result);
                 isLoading.postValue(false);
+                Log.d("NutritionViewModel", "Fetch from server: " + result.getDate());
             }
 
             @Override

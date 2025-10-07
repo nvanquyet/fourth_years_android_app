@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android_Exam</string>
+    <string name="app_name">Food Manager</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open_ai_key">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</string>
